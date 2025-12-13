@@ -1,4 +1,4 @@
-# *Node.js Fundamentals -- Detailed Notes* 
+# ***Node.js Fundamentals -- Detailed Notes*** 
 ---
 
 # 1. **Starting with Node.js -- The Beginning**
