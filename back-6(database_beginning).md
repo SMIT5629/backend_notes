@@ -996,7 +996,6 @@ const commentSchema = new mongoose.Schema({
   }
 });
 ```
-
 ---
 
 ## Populate dynamically
