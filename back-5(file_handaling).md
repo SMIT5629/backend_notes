@@ -22,7 +22,7 @@ By default, Express understands only **text‑based request bodies**.
 | application/x-www-form-urlencoded | Forms    | ✅ Native        |
 | multipart/form-data               | Files    | ❌ Not native    |
 
-
+## fs (no longer necessary)
 ### **1. Understanding the Basics**
 
 Node.js has a core module called `fs` (File System) which lets you **read, write, update, and delete files**.
