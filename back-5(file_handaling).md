@@ -155,8 +155,6 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 3. For **large files**, use `fs.createReadStream` or `fs.createWriteStream` to avoid memory issues.
 ---
 
-
-
 ### 🔹 What happens without Multer
 
 If a file is sent without Multer:

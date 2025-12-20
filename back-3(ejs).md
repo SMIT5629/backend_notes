@@ -278,7 +278,6 @@ res.render("profile", { name: "Smit", age: 20 });
 <p>Name: <%= name %></p>
 <p>Age: <%= age %></p>
 ```
-
 ---
 
 # 9. Accessing Static Files Inside EJS
