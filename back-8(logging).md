@@ -68,7 +68,6 @@ Morgan logs:
 * Response time
 
 ---
-
 ## 🔹 Morgan Modes
 
 ### 1️⃣ dev
