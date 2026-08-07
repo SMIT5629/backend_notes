@@ -1,9 +1,10 @@
-# ***Node.js Fundamentals -- Detailed Notes*** 
+# Node.js Fundamentals -- Detailed Notes
+
 ---
 
-# 1. **Starting with Node.js -- The Beginning**
+# 1. Starting with Node.js -- The Beginning
 
-### ⭐ What is Node.js?
+## What is Node.js?
 
 Node.js is a JavaScript runtime that allows JavaScript to run outside
 the browser.
@@ -11,37 +12,37 @@ It uses the V8 engine internally and provides extra features like:
 
 - File system access
 - Creating servers
--  Networking
--   Event loop 
+- Networking
+- Event loop
 - Asynchronous architecture
 
-------------------------------------------------------------------------
+---
 
-## ⭐ Tools Required
+## Tools Required
 
-### ✔ Node.js LTS
+### Node.js LTS
 
 Provides stable runtime + NPM.
 
-### ✔ VS Code
+### VS Code
 
 Best editor for Node development (terminal + debugging + extensions).
 
-### ✔ Postman / Thunder Client
+### Postman / Thunder Client
 
 Used to test APIs without needing a frontend UI.
 
-------------------------------------------------------------------------
+---
 
-## ⭐ Running Your First Script ("Namaste Duniya")
+## Running Your First Script ("Namaste Duniya")
 
-1.  Create a file:
+1. Create a file:
 
-    ``` js
-    console.log("Namaste Duniya 🌍");
+    ```js
+    console.log("Namaste Duniya");
     ```
 
-2.  Run in terminal:
+2. Run in terminal:
 
         node index.js
 
@@ -49,9 +50,9 @@ Used to test APIs without needing a frontend UI.
 
 Node → passes code to V8 → executes and prints output.
 
-------------------------------------------------------------------------
+---
 
-## ⭐ NPM Basics
+## NPM Basics
 
 NPM = Node Package Manager used to install/manage dependencies.
 
@@ -59,7 +60,8 @@ NPM = Node Package Manager used to install/manage dependencies.
 
     npm init -y
 
-Creates `package.json` containing: - project details
+Creates `package.json` containing:
+- project details
 - dependencies
 - scripts
 - metadata
@@ -72,36 +74,38 @@ Creates `package.json` containing: - project details
 
     npm install -g nodemon
 
-------------------------------------------------------------------------
+---
 
-## ⭐ package.json
+## package.json
 
-Stores the entire project structure: 
+Stores the entire project structure:
 - Dependencies
 - Dev dependencies
 - Scripts
 - Versioning
 - Project metadata
 
-------------------------------------------------------------------------
+---
 
-# 2. **Creating Server -- Writing Our First Server**
+# 2. Creating Server -- Writing Our First Server
 
-## ⭐ What is a Server?
+## What is a Server?
 
-A server is a system that: - Accepts **requests** - Processes them -
-Sends **responses** back
+A server is a system that:
+- Accepts requests
+- Processes them
+- Sends responses back
 
-Node.js is ideal for servers because of its: 
-- Event-drivenarchitecture
+Node.js is ideal for servers because of its:
+- Event-driven architecture
 - Non-blocking I/O
 - Single-threaded but highly scalable model
 
-------------------------------------------------------------------------
+---
 
-## ⭐ Creating First Node Server (http module)
+## Creating First Node Server (http module)
 
-``` js
+```js
 const http = require("http");
 
 const server = http.createServer((req, res) => {
@@ -122,19 +126,19 @@ Visit:
 
     http://localhost:3000
 
-------------------------------------------------------------------------
+---
 
-## ⭐ Understanding Request & Response
+## Understanding Request & Response
 
--   `res.write()` → send data
--   `res.end()` → end the response
-    Without `res.end()`, the request never closes.
+- `res.write()` → send data
+- `res.end()` → end the response
+  Without `res.end()`, the request never closes.
 
-------------------------------------------------------------------------
+---
 
-## ⭐ Routing in Node.js HTTP Server
+## Routing in Node.js HTTP Server
 
-``` js
+```js
 const http = require("http");
 
 const server = http.createServer((req, res) => {
@@ -150,75 +154,75 @@ const server = http.createServer((req, res) => {
 server.listen(3000);
 ```
 
-------------------------------------------------------------------------
+---
 
-# 3. **HTTP Status Codes**
+# 3. HTTP Status Codes
 
-## ✔ 1XX -- Informational
+## 1XX -- Informational
 
 Indicates request is received and processing continues.
-Example: **100 Continue**
+Example: 100 Continue
 
-## ✔ 2XX -- Success
+## 2XX -- Success
 
--   **200 OK** -- Successful
--   **201 Created** -- Resource created
+- 200 OK -- Successful
+- 201 Created -- Resource created
 
 Example:
 
-``` js
+```js
 res.writeHead(200, { "Content-Type": "text/plain" });
 res.end("Success");
 ```
 
-------------------------------------------------------------------------
+---
 
-## ✔ 3XX -- Redirection
+## 3XX -- Redirection
 
--   **301 Moved Permanently**
--   **302 Found**
+- 301 Moved Permanently
+- 302 Found
 
 Example:
 
-``` js
+```js
 res.writeHead(302, { Location: "/login" });
 res.end();
 ```
 
-------------------------------------------------------------------------
+---
 
-## ✔ 4XX -- Client Errors
+## 4XX -- Client Errors
 
--   **400 Bad Request**
--   **401 Unauthorized**
--   **403 Forbidden**
--   **404 Not Found**
--   **422 Unprocessable Entity**
+- 400 Bad Request
+- 401 Unauthorized
+- 403 Forbidden
+- 404 Not Found
+- 422 Unprocessable Entity
 
 Example:
 
-``` js
+```js
 res.writeHead(404);
 res.end("Page Not Found");
 ```
 
-------------------------------------------------------------------------
+---
 
-## ✔ 5XX -- Server Errors
+## 5XX -- Server Errors
 
--   **500 Internal Server Error**
--   **503 Service Unavailable**
+- 500 Internal Server Error
+- 503 Service Unavailable
 
 Example:
 
-``` js
+```js
 res.writeHead(500);
 res.end("Server Error");
 ```
 
-------------------------------------------------------------------------
+---
 
-# 4. **Nodemon -- Automatic Server Restart**
+# 4. Nodemon -- Automatic Server Restart
 
 ## Install nodemon (global)
 
@@ -230,7 +234,7 @@ res.end("Server Error");
 
 ## Add script in package.json
 
-``` json
+```json
 "scripts": {
   "start": "node server.js",
   "dev": "nodemon server.js"
@@ -241,48 +245,41 @@ Run:
 
     npm run dev
 
-### ✔ Benefit:
+### Benefit:
 
 Nodemon automatically restarts the server whenever you save your file
---- no need to restart manually.
-Great, Smit!
-Since this is **theory + explanation**, it is *not homework solving*, so I can safely give you the **README.md-style file**.
-
-Here is your clean, professional **README.md** exactly as you requested:
+-- no need to restart manually.
 
 ---
----
 
-# **5. Backend Architectures – MVC, SOA & REST APIs**
+# 5. Backend Architectures -- MVC, SOA & REST APIs
 
 *A clean explanation with examples*
 
 ---
 
-##   **1. Different Architectures in Backend**
+## 1. Different Architectures in Backend
 
 Backend systems can be organized using different architectures depending on size, complexity, and scalability needs.
 
 ### 1.1 MVC (Model–View–Controller)
 
-A **structured architecture** used to keep backend code clean and organized.
+A structured architecture used to keep backend code clean and organized.
 
 ### 1.2 SOA (Service-Oriented Architecture)
 
-A **large-scale architecture** that divides the backend into multiple small services (sub-servers), each handling a specific job.
+A large-scale architecture that divides the backend into multiple small services (sub-servers), each handling a specific job.
 
 ---
 
-##  **2. MVC Architecture**
+## 2. MVC Architecture
 
 MVC divides a backend into three main components:
 
----
+### 2.1 Model
 
-## 2.1 Model
-
-* Represents **data** and **database logic**.
-* Defines schemas and interacts with the database.
+- Represents data and database logic.
+- Defines schemas and interacts with the database.
 
 **Example (Node.js + Mongoose):**
 
@@ -297,20 +294,16 @@ const taskSchema = new mongoose.Schema({
 module.exports = mongoose.model("Task", taskSchema);
 ```
 
----
+### 2.2 View
 
-## 2.2 View
+- Represents UI or output.
+- In REST APIs, the View is usually not used because the frontend (React, Angular, etc.) handles UI.
+- In EJS/Laravel/Django, View renders HTML templates.
 
-* Represents **UI or output**.
-* In REST APIs, the View is usually **not used** because the frontend (React, Angular, etc.) handles UI.
-* In EJS/Laravel/Django, View renders HTML templates.
+### 2.3 Controller
 
----
-
-## 2.3 Controller
-
-* Contains **business logic**.
-* Receives request → processes → returns response.
+- Contains business logic.
+- Receives request → processes → returns response.
 
 **Example:**
 
@@ -323,9 +316,7 @@ exports.getTasks = async (req, res) => {
 };
 ```
 
----
-
-## 2.4 MVC Folder Structure Example
+### 2.4 MVC Folder Structure Example
 
 ```
 /controllers
@@ -339,22 +330,22 @@ server.js
 
 ---
 
-## 📌 **3. MVC in the Context of REST APIs**
+## 3. MVC in the Context of REST APIs
 
 REST APIs follow:
 
-* **Client & Server are separate**
-* Communication via **HTTP methods**
-* Responses in **JSON**
+- Client & Server are separate
+- Communication via HTTP methods
+- Responses in JSON
 
 MVC fits REST APIs perfectly:
 
 | REST API Component  | MVC Part    |
-| ------------------- | ----------- |
-| Endpoint `/tasks`   | Route       |
-| Business Logic      | Controller  |
-| Database Operations | Model       |
-| No HTML UI          | View unused |
+| -------------------- | ----------- |
+| Endpoint `/tasks`    | Route       |
+| Business Logic        | Controller  |
+| Database Operations   | Model       |
+| No HTML UI             | View unused |
 
 **Route Example**
 
@@ -369,17 +360,16 @@ module.exports = router;
 
 ---
 
-## 📌 **4. SOA (Service-Oriented Architecture)**
+## 4. SOA (Service-Oriented Architecture)
 
-SOA is an architecture where the backend is split into **multiple small services**.
+SOA is an architecture where the backend is split into multiple small services.
 
 Each service has:
+- Its own server
+- Its own database
+- Its own MVC structure
 
-* Its own server
-* Its own database
-* Its own MVC structure
-
-###  **Example: Food Delivery App**
+### Example: Food Delivery App
 
 ```
 User Service       (login, signup)
@@ -388,7 +378,7 @@ Restaurant Service (menu)
 Payment Service    (payments)
 ```
 
-Each is a **separate mini-backend**, communicating via REST APIs.
+Each is a separate mini-backend, communicating via REST APIs.
 
 Example:
 
@@ -400,23 +390,20 @@ Payment Service: POST /pay
 
 ---
 
-## 📌 **5. MVC vs SOA (Simple Comparison)**
+## 5. MVC vs SOA (Simple Comparison)
 
 | Feature      | MVC                | SOA                      |
-| ------------ | ------------------ | ------------------------ |
-| Structure    | Inside one backend | Many backends (services) |
-| Use Case     | Small/Medium apps  | Large systems            |
-| Servers      | Single             | Multiple                 |
-| Relationship | MVC is part of SOA | SOA = many MVC apps      |
+| ------------ | ------------------- | ------------------------- |
+| Structure    | Inside one backend  | Many backends (services)  |
+| Use Case     | Small/Medium apps   | Large systems              |
+| Servers      | Single               | Multiple                   |
+| Relationship | MVC is part of SOA  | SOA = many MVC apps        |
 
 ---
 
-### 📌  **Final Summary**
+## Final Summary
 
-
-* **MVC** keeps backend code clean using Model, View, Controller.
-* **REST APIs** commonly use MVC.
-* **SOA** is a big architecture where backend is divided into many services.
-* Each SOA service internally uses **its own MVC**.
-
----
+- MVC keeps backend code clean using Model, View, Controller.
+- REST APIs commonly use MVC.
+- SOA is a big architecture where backend is divided into many services.
+- Each SOA service internally uses its own MVC.
