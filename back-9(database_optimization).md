@@ -1,6 +1,6 @@
 # 1. Indexing for Performance in MongoDB
 
-### ❓ What is an Index? (SQL link)
+### What is an Index? (SQL link)
 
 An **index** is a special data structure that helps MongoDB **find documents faster**.
 
@@ -13,7 +13,7 @@ Indexes are stored separately from the actual data and are automatically used by
 
 ---
 
-### 🔹 Single-Field Index
+### Single-Field Index
 
 An index created on **one field only**.
 
@@ -30,13 +30,13 @@ db.users.find({ email: "abc@gmail.com" })
 * `1` → ascending order
 * `-1` → descending order
 
-✔ Very fast lookups
-✔ Most commonly used index
-✔ Ideal for unique fields like email, username, phone
+ Very fast lookups
+ Most commonly used index
+ Ideal for unique fields like email, username, phone
 
 ---
 
-### 🔹 Compound Index
+### Compound Index
 
 An index created on **multiple fields together**.
 
@@ -53,13 +53,13 @@ MongoDB stores this index in the **same order** as defined.
 { userId: 101, createdAt: { $gt: ISODate("2024-01-01") } }
 ```
 
-❌ **Not efficient for:**
+ **Not efficient for:**
 
 ```js
 { createdAt: ... }
 ```
 
-👉 Similar to SQL composite index:
+ Similar to SQL composite index:
 
 ```sql
 INDEX(userId, createdAt)
@@ -67,7 +67,7 @@ INDEX(userId, createdAt)
 
 ---
 
-### 🔹 Text Index
+### Text Index
 
 Used for **text searching** inside string fields.
 
@@ -84,12 +84,12 @@ db.posts.find({ $text: { $search: "mongodb indexing" } })
 * Searches words, not exact strings
 * Supports relevance scoring
 
-✔ Useful for blogs, articles, search bars
-❌ Not suitable for pattern matching like regex
+ Useful for blogs, articles, search bars
+ Not suitable for pattern matching like regex
 
 ---
 
-### 🔹 Wildcard Index
+### Wildcard Index
 
 Used when documents contain **dynamic or unknown fields**.
 
@@ -101,35 +101,35 @@ Example document:
 
 ```js
 attributes: {
-  color: "red",
-  size: "M",
-  brand: "Nike"
+ color: "red",
+ size: "M",
+ brand: "Nike"
 }
 ```
 
-✔ Flexible schema support
-✔ Useful in product catalogs
-❌ Slightly heavier than normal indexes
+ Flexible schema support
+ Useful in product catalogs
+ Slightly heavier than normal indexes
 
 ---
 
-## ✅ Best Practices for Indexing
+## Best Practices for Indexing
 
-✔ Create indexes on fields frequently used in:
+ Create indexes on fields frequently used in:
 
 * `find()`
 * `sort()`
 * `$match` (aggregation)
 
-✔ Place the **most selective field first** in compound indexes
-✔ Remove unused indexes periodically
+ Place the **most selective field first** in compound indexes
+ Remove unused indexes periodically
 
-❌ Avoid over-indexing
+ Avoid over-indexing
 
 * Each index increases storage
 * Slows down insert, update, and delete operations
 
-✔ Use `explain()` to analyze performance
+ Use `explain()` to analyze performance
 
 ```js
 db.users.find({ age: 25 }).explain("executionStats")
@@ -153,7 +153,7 @@ MongoDB equivalent:
 
 ```js
 db.employees.aggregate([
-  { $group: { _id: "$department", count: { $sum: 1 } } }
+ { $group: { _id: "$department", count: { $sum: 1 } } }
 ])
 ```
 
@@ -165,16 +165,16 @@ Aggregation is commonly used for reports, analytics, and dashboards.
 
 Used to **compare field values** during querying.
 
-| Operator | Meaning                       |
+| Operator | Meaning |
 | -------- | ----------------------------- |
-| `$eq`    | equal                         |
-| `$ne`    | not equal                     |
-| `$lt`    | less than                     |
-| `$gt`    | greater than                  |
-| `$lte`   | less than or equal            |
-| `$gte`   | greater than or equal         |
-| `$in`    | value exists in array         |
-| `$nin`   | value does not exist in array |
+| `$eq` | equal |
+| `$ne` | not equal |
+| `$lt` | less than |
+| `$gt` | greater than |
+| `$lte` | less than or equal |
+| `$gte` | greater than or equal |
+| `$in` | value exists in array |
+| `$nin` | value does not exist in array |
 
 Examples:
 
@@ -192,42 +192,42 @@ db.users.find({ role: { $in: ["admin", "manager"] } })
 
 Used to **combine multiple conditions**.
 
-### 🔹 `$and`
+### `$and`
 
 ```js
 db.users.find({
-  $and: [
-    { age: { $gt: 18 } },
-    { city: "Delhi" }
-  ]
+ $and: [
+ { age: { $gt: 18 } },
+ { city: "Delhi" }
+ ]
 })
 ```
 
-### 🔹 `$or`
+### `$or`
 
 ```js
 db.users.find({
-  $or: [
-    { role: "admin" },
-    { role: "manager" }
-  ]
+ $or: [
+ { role: "admin" },
+ { role: "manager" }
+ ]
 })
 ```
 
-### 🔹 `$not`
+### `$not`
 
 ```js
 db.users.find({ age: { $not: { $gte: 18 } } })
 ```
 
-### 🔹 `$nor`
+### `$nor`
 
 ```js
 db.users.find({
-  $nor: [
-    { city: "Mumbai" },
-    { city: "Delhi" }
-  ]
+ $nor: [
+ { city: "Mumbai" },
+ { city: "Delhi" }
+ ]
 })
 ```
 
@@ -243,18 +243,18 @@ Assume:
 skills: ["JS", "Node"]
 ```
 
-### 🔹 `$push`
+### `$push`
 
 Adds a value to the array.
 
 ```js
 db.users.updateOne(
-  { _id: 1 },
-  { $push: { skills: "MongoDB" } }
+ { _id: 1 },
+ { $push: { skills: "MongoDB" } }
 )
 ```
 
-### 🔹 `$addToSet`
+### `$addToSet`
 
 Adds value **only if it does not already exist**.
 
@@ -262,7 +262,7 @@ Adds value **only if it does not already exist**.
 { $addToSet: { skills: "Node" } }
 ```
 
-### 🔹 `$pull`
+### `$pull`
 
 Removes a specific value.
 
@@ -270,12 +270,12 @@ Removes a specific value.
 { $pull: { skills: "JS" } }
 ```
 
-### 🔹 `$pop`
+### `$pop`
 
 Removes element by position.
 
 ```js
-{ $pop: { skills: 1 } }   // last
+{ $pop: { skills: 1 } } // last
 { $pop: { skills: -1 } } // first
 ```
 
@@ -283,7 +283,7 @@ Removes element by position.
 
 # 6. Aggregation Pipeline Stages
 
-### 🔹 `$match`
+### `$match`
 
 Filters documents early.
 
@@ -291,20 +291,20 @@ Filters documents early.
 { $match: { age: { $gt: 18 } } }
 ```
 
-### 🔹 `$group`
+### `$group`
 
 Groups documents and applies calculations.
 
 ```js
 {
-  $group: {
-    _id: "$department",
-    total: { $sum: 1 }
-  }
+ $group: {
+ _id: "$department",
+ total: { $sum: 1 }
+ }
 }
 ```
 
-### 🔹 `$project`
+### `$project`
 
 Controls which fields appear in output.
 
@@ -312,7 +312,7 @@ Controls which fields appear in output.
 { $project: { name: 1, age: 1, _id: 0 } }
 ```
 
-### 🔹 `$sort`
+### `$sort`
 
 Orders documents.
 
@@ -320,18 +320,18 @@ Orders documents.
 { $sort: { age: -1 } }
 ```
 
-### 🔹 `$lookup`
+### `$lookup`
 
 Performs join-like operations.
 
 ```js
 {
-  $lookup: {
-    from: "orders",
-    localField: "_id",
-    foreignField: "userId",
-    as: "orders"
-  }
+ $lookup: {
+ from: "orders",
+ localField: "_id",
+ foreignField: "userId",
+ as: "orders"
+ }
 }
 ```
 
@@ -339,7 +339,7 @@ Performs join-like operations.
 
 # 7. Creating Database
 
-### 🔹 Local MongoDB
+### Local MongoDB
 
 ```bash
 mongosh
@@ -350,7 +350,7 @@ The database is created automatically when data is inserted.
 
 ---
 
-### 🔹 MongoDB Atlas
+### MongoDB Atlas
 
 Steps:
 
@@ -371,16 +371,16 @@ Allows running **multiple aggregation pipelines in parallel**.
 
 ```js
 db.products.aggregate([
-  {
-    $facet: {
-      priceStats: [
-        { $group: { _id: null, avg: { $avg: "$price" } } }
-      ],
-      categories: [
-        { $group: { _id: "$category" } }
-      ]
-    }
-  }
+ {
+ $facet: {
+ priceStats: [
+ { $group: { _id: null, avg: { $avg: "$price" } } }
+ ],
+ categories: [
+ { $group: { _id: "$category" } }
+ ]
+ }
+ }
 ])
 ```
 
@@ -390,7 +390,7 @@ Frequently used in analytics dashboards and reporting APIs.
 
 # 9. MongoDB Operator Types
 
-### 🔹 Comparison Operators
+### Comparison Operators
 
 Used for filtering values.
 
@@ -398,7 +398,7 @@ Used for filtering values.
 
 ---
 
-### 🔹 Regex Operators
+### Regex Operators
 
 Used for pattern matching.
 
@@ -408,7 +408,7 @@ db.users.find({ name: { $regex: "^A" } })
 
 ---
 
-### 🔹 Update Operators
+### Update Operators
 
 Used to modify documents.
 
@@ -420,7 +420,7 @@ Used to modify documents.
 
 ---
 
-### 🔹 Aggregation Operators
+### Aggregation Operators
 
 Used inside aggregation pipeline.
 

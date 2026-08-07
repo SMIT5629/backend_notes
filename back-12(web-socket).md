@@ -2,7 +2,7 @@
 
 ---
 
-# 1️⃣ Introduction — What “Real-Time” Really Means
+# Introduction — What “Real-Time” Really Means
 
 Real-time applications deliver data to clients **immediately when events occur**, instead of clients repeatedly requesting updates.
 
@@ -32,7 +32,7 @@ Real-time systems require **persistent, low-latency, bidirectional communication
 
 ---
 
-# 2️⃣ WebSocket Protocol
+# WebSocket Protocol
 
 ## 2.1 What Is WebSocket?
 
@@ -96,21 +96,21 @@ After this:
 const ws = new WebSocket("wss://example.com/chat");
 
 ws.addEventListener("open", () => {
-  console.log("Connection opened");
-  ws.send(JSON.stringify({ type: "hello", user: "alice" }));
+ console.log("Connection opened");
+ ws.send(JSON.stringify({ type: "hello", user: "alice" }));
 });
 
 ws.addEventListener("message", (event) => {
-  const data = JSON.parse(event.data);
-  console.log("Received:", data);
+ const data = JSON.parse(event.data);
+ console.log("Received:", data);
 });
 
 ws.addEventListener("close", (event) => {
-  console.log("Closed:", event.code, event.reason);
+ console.log("Closed:", event.code, event.reason);
 });
 
 ws.addEventListener("error", (error) => {
-  console.error("WebSocket error:", error);
+ console.error("WebSocket error:", error);
 });
 ```
 
@@ -127,16 +127,16 @@ const server = http.createServer();
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (socket) => {
-  console.log('Client connected');
+ console.log('Client connected');
 
-  socket.on('message', (message) => {
-    console.log('Received:', message.toString());
-    socket.send(`Echo: ${message}`);
-  });
+ socket.on('message', (message) => {
+ console.log('Received:', message.toString());
+ socket.send(`Echo: ${message}`);
+ });
 
-  socket.on('close', () => {
-    console.log('Client disconnected');
-  });
+ socket.on('close', () => {
+ console.log('Client disconnected');
+ });
 });
 
 server.listen(8080);
@@ -144,7 +144,7 @@ server.listen(8080);
 
 ---
 
-# 3️⃣ HTTP Polling (Before WebSocket)
+# HTTP Polling (Before WebSocket)
 
 ## 3.1 Short Polling
 
@@ -152,9 +152,9 @@ Client sends request repeatedly at intervals.
 
 ```javascript
 setInterval(async () => {
-  const res = await fetch('/updates');
-  const data = await res.json();
-  console.log(data);
+ const res = await fetch('/updates');
+ const data = await res.json();
+ console.log(data);
 }, 5000);
 ```
 
@@ -179,16 +179,16 @@ const app = express();
 let pending = [];
 
 app.get('/longpoll', (req, res) => {
-  pending.push(res);
+ pending.push(res);
 
-  req.on('close', () => {
-    pending = pending.filter(r => r !== res);
-  });
+ req.on('close', () => {
+ pending = pending.filter(r => r !== res);
+ });
 });
 
 function publishUpdate(data) {
-  pending.forEach(res => res.json({ data }));
-  pending = [];
+ pending.forEach(res => res.json({ data }));
+ pending = [];
 }
 ```
 
@@ -202,18 +202,18 @@ For production real-time systems → WebSocket or Socket.IO is preferred.
 
 ---
 
-# 4️⃣ WebSocket vs Socket.IO
+# WebSocket vs Socket.IO
 
-| Feature      | WebSocket | Socket.IO          |
+| Feature | WebSocket | Socket.IO |
 | ------------ | --------- | ------------------ |
-| Type         | Protocol  | Library            |
-| Persistent   | Yes       | Yes                |
-| Reconnection | Manual    | Automatic          |
-| Fallback     | No        | Yes (long polling) |
-| Rooms        | No        | Yes                |
-| Middleware   | No        | Yes                |
-| Event System | Basic     | Advanced           |
-| Namespaces   | No        | Yes                |
+| Type | Protocol | Library |
+| Persistent | Yes | Yes |
+| Reconnection | Manual | Automatic |
+| Fallback | No | Yes (long polling) |
+| Rooms | No | Yes |
+| Middleware | No | Yes |
+| Event System | Basic | Advanced |
+| Namespaces | No | Yes |
 
 ### Key Difference
 
@@ -230,7 +230,7 @@ For production real-time systems → WebSocket or Socket.IO is preferred.
 
 ---
 
-# 5️⃣ Working with Socket.IO
+# Working with Socket.IO
 
 ## 5.1 Installation
 
@@ -251,41 +251,41 @@ const app = express();
 const server = http.createServer(app);
 
 const io = new Server(server, {
-  cors: { origin: '*' }
+ cors: { origin: '*' }
 });
 
 // Authentication middleware
 io.use((socket, next) => {
-  const token = socket.handshake.auth?.token;
+ const token = socket.handshake.auth?.token;
 
-  if (token === 'valid_token') {
-    next();
-  } else {
-    next(new Error('Authentication error'));
-  }
+ if (token === 'valid_token') {
+ next();
+ } else {
+ next(new Error('Authentication error'));
+ }
 });
 
 io.on('connection', (socket) => {
-  console.log('Connected:', socket.id);
+ console.log('Connected:', socket.id);
 
-  socket.on('join_room', (room) => {
-    socket.join(room);
-  });
+ socket.on('join_room', (room) => {
+ socket.join(room);
+ });
 
-  socket.on('send_message', (data, ack) => {
-    io.to(data.room).emit('receive_message', {
-      from: socket.id,
-      text: data.text
-    });
+ socket.on('send_message', (data, ack) => {
+ io.to(data.room).emit('receive_message', {
+ from: socket.id,
+ text: data.text
+ });
 
-    if (typeof ack === 'function') {
-      ack({ status: 'ok' });
-    }
-  });
+ if (typeof ack === 'function') {
+ ack({ status: 'ok' });
+ }
+ });
 
-  socket.on('disconnect', (reason) => {
-    console.log('Disconnected:', socket.id, reason);
-  });
+ socket.on('disconnect', (reason) => {
+ console.log('Disconnected:', socket.id, reason);
+ });
 });
 
 server.listen(3000);
@@ -299,30 +299,30 @@ server.listen(3000);
 import { io } from "socket.io-client";
 
 const socket = io("https://your-server:3000", {
-  auth: { token: "valid_token" }
+ auth: { token: "valid_token" }
 });
 
 socket.on("connect", () => {
-  console.log("Connected:", socket.id);
+ console.log("Connected:", socket.id);
 });
 
 socket.emit("join_room", "room42");
 
 socket.emit("send_message",
-  { room: "room42", text: "Hello!" },
-  (ack) => {
-    console.log("Server response:", ack);
-  }
+ { room: "room42", text: "Hello!" },
+ (ack) => {
+ console.log("Server response:", ack);
+ }
 );
 
 socket.on("receive_message", (data) => {
-  console.log("Message:", data);
+ console.log("Message:", data);
 });
 ```
 
 ---
 
-# 6️⃣ Rooms in Socket.IO
+# Rooms in Socket.IO
 
 ## Joining a Room
 
@@ -350,14 +350,14 @@ socket.broadcast.to("room1").emit("typing", socket.id);
 
 ---
 
-# 7️⃣ Middleware in Socket.IO
+# Middleware in Socket.IO
 
 ## Connection-Level Middleware
 
 ```javascript
 io.use((socket, next) => {
-  const token = socket.handshake.auth.token;
-  next();
+ const token = socket.handshake.auth.token;
+ next();
 });
 ```
 
@@ -365,10 +365,10 @@ io.use((socket, next) => {
 
 ```javascript
 socket.use(([event, payload], next) => {
-  if (event === "send_message" && typeof payload.text !== "string") {
-    return next(new Error("Invalid payload"));
-  }
-  next();
+ if (event === "send_message" && typeof payload.text !== "string") {
+ return next(new Error("Invalid payload"));
+ }
+ next();
 });
 ```
 
@@ -381,7 +381,7 @@ socket.use(([event, payload], next) => {
 
 ---
 
-# 8️⃣ Complete Real-Time Chat Flow
+# Complete Real-Time Chat Flow
 
 1. Client connects
 2. Server authenticates
@@ -394,7 +394,7 @@ socket.use(([event, payload], next) => {
 
 ---
 
-# 9️⃣ Production Best Practices
+# Production Best Practices
 
 ### Security
 
@@ -425,7 +425,7 @@ Track:
 
 ---
 
-# 🔟 Troubleshooting Quick Guide
+# Troubleshooting Quick Guide
 
 ### Connection Not Upgrading?
 

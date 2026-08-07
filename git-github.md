@@ -32,11 +32,11 @@ A **Version Control System (VCS)** tracks changes to files over time so you can:
 
 ### Git vs GitHub
 
-| Git                    | GitHub                |
+| Git | GitHub |
 | ---------------------- | --------------------- |
 | Version control system | Code hosting platform |
-| Works locally          | Works online          |
-| Tracks history         | Enables collaboration |
+| Works locally | Works online |
+| Tracks history | Enables collaboration |
 
 Alternatives: GitLab, Bitbucket
 
@@ -77,7 +77,7 @@ Git works in **three areas** (official Git concept):
 Working Directory → Staging Area → Repository
 ```
 
-👉 Official Git emphasizes that the *staging area* gives precise control over what goes into a commit.
+ Official Git emphasizes that the *staging area* gives precise control over what goes into a commit.
 
 ---
 
@@ -167,7 +167,7 @@ Used to:
 git commit --amend
 ```
 
-### Reset (⚠ Dangerous)
+### Reset ( Dangerous)
 
 `git reset` moves the branch pointer backward.
 
@@ -327,7 +327,7 @@ git rebase main
 git rebase -i main
 ```
 
-⚠ Never rebase shared branches
+ Never rebase shared branches
 
 ---
 

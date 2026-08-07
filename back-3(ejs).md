@@ -19,12 +19,12 @@ Without a template engine:
 * Code becomes messy and hard to maintain
 * Reusing layouts is difficult
 
-#### ❌ Without Template Engine
+#### Without Template Engine
 
 ```js
 app.get("/", (req, res) => {
-    const name = "Smit";
-    res.send(`<html><body><h1>Hello ${name}</h1></body></html>`);
+ const name = "Smit";
+ res.send(`<html><body><h1>Hello ${name}</h1></body></html>`);
 });
 ```
 
@@ -34,11 +34,11 @@ Problems:
 * Not reusable
 * Mixing logic and UI
 
-#### ✅ With Template Engine
+#### With Template Engine
 
 ```js
 app.get("/", (req, res) => {
-    res.render("home", { name: "Smit" });
+ res.render("home", { name: "Smit" });
 });
 ```
 
@@ -113,7 +113,7 @@ const app = express();
 app.set("view engine", "ejs");
 ```
 
-📌 Express automatically handles EJS internally. We do **NOT** use `require('ejs')` manually.
+ Express automatically handles EJS internally. We do **NOT** use `require('ejs')` manually.
 
 ### Default Behavior
 
@@ -128,7 +128,7 @@ app.set("view engine", "ejs");
 ```
 project
 ├── views
-│   └── home.ejs
+│ └── home.ejs
 └── app.js
 ```
 
@@ -136,7 +136,7 @@ project
 
 ```js
 app.get("/", (req, res) => {
-    res.render("home");
+ res.render("home");
 });
 ```
 
@@ -146,20 +146,20 @@ app.get("/", (req, res) => {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
+ <title>Home</title>
 </head>
 <body>
-    <h1>Hello from EJS</h1>
+ <h1>Hello from EJS</h1>
 </body>
 </html>
 ```
 
 ### Difference Between res.send() and res.render()
 
-| res.send()               | res.render()     |
+| res.send() | res.render() |
 | ------------------------ | ---------------- |
 | Sends plain text or HTML | Renders template |
-| No template processing   | Processes EJS    |
+| No template processing | Processes EJS |
 
 ---
 
@@ -183,8 +183,8 @@ Output:
 <h1>Hello</h1>
 ```
 
-✔ Prevents XSS attacks
-✔ Use for user input
+ Prevents XSS attacks
+ Use for user input
 
 ---
 
@@ -215,7 +215,7 @@ res.render("home", { content: "<b>Bold Text</b>" });
 <%- content %>
 ```
 
-⚠️ Dangerous if used with user input (XSS risk)
+ Dangerous if used with user input (XSS risk)
 
 ---
 
@@ -227,8 +227,8 @@ Used to render lists dynamically.
 
 ```js
 app.get("/users", (req, res) => {
-    const users = ["Smit", "Aman", "Ravi"];
-    res.render("users", { users });
+ const users = ["Smit", "Aman", "Ravi"];
+ res.render("users", { users });
 });
 ```
 
@@ -236,9 +236,9 @@ app.get("/users", (req, res) => {
 
 ```html
 <ul>
-    <% users.forEach(user => { %>
-        <li><%= user %></li>
-    <% }) %>
+ <% users.forEach(user => { %>
+ <li><%= user %></li>
+ <% }) %>
 </ul>
 ```
 
@@ -258,9 +258,9 @@ res.render("login", { isLoggedIn: true });
 
 ```html
 <% if (isLoggedIn) { %>
-    <h1>Welcome Back</h1>
+ <h1>Welcome Back</h1>
 <% } else { %>
-    <h1>Please Login</h1>
+ <h1>Please Login</h1>
 <% } %>
 ```
 
@@ -293,9 +293,9 @@ Static files include:
 ```
 project
 ├── public
-│   ├── css/style.css
-│   ├── js/app.js
-│   └── images/logo.png
+│ ├── css/style.css
+│ ├── js/app.js
+│ └── images/logo.png
 ├── views/home.ejs
 └── app.js
 ```
@@ -314,7 +314,7 @@ app.use(express.static("public"));
 <img src="/images/logo.png" />
 ```
 
-📌 `public` folder name is not used in URL
+ `public` folder name is not used in URL
 
 ---
 

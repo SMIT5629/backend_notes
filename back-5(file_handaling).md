@@ -1,9 +1,9 @@
-# ***📁 Handling File Uploads in Express.js —***
+# *** Handling File Uploads in Express.js —***
 ---
 
-# **1️⃣ File Upload Problem in Express.js**
+# ** File Upload Problem in Express.js**
 
-### 🔹 What Express.js is designed for
+### What Express.js is designed for
 
 Express.js is a **web framework** designed to handle:
 
@@ -14,13 +14,13 @@ Express.js is a **web framework** designed to handle:
 
 By default, Express understands only **text‑based request bodies**.
 
-### 🔹 Types of request bodies
+### Types of request bodies
 
-| Content Type                      | Used For | Express Support |
+| Content Type | Used For | Express Support |
 | --------------------------------- | -------- | --------------- |
-| application/json                  | APIs     | ✅ Native        |
-| application/x-www-form-urlencoded | Forms    | ✅ Native        |
-| multipart/form-data               | Files    | ❌ Not native    |
+| application/json | APIs | Native |
+| application/x-www-form-urlencoded | Forms | Native |
+| multipart/form-data | Files | Not native |
 
 ## fs (no longer necessary)
 ### **1. Understanding the Basics**
@@ -56,16 +56,16 @@ Suppose you want to **store data in a JSON file**:
 
 ```js
 app.post('/save', (req, res) => {
-    const data = req.body; // JSON object from client
-    const filePath = path.join(__dirname, 'data.json');
+ const data = req.body; // JSON object from client
+ const filePath = path.join(__dirname, 'data.json');
 
-    // Write file asynchronously
-    fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
-        if (err) {
-            return res.status(500).json({ message: 'Error saving file', error: err });
-        }
-        res.json({ message: 'File saved successfully!' });
-    });
+ // Write file asynchronously
+ fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
+ if (err) {
+ return res.status(500).json({ message: 'Error saving file', error: err });
+ }
+ res.json({ message: 'File saved successfully!' });
+ });
 });
 ```
 
@@ -79,14 +79,14 @@ app.post('/save', (req, res) => {
 
 ```js
 app.get('/read', (req, res) => {
-    const filePath = path.join(__dirname, 'data.json');
+ const filePath = path.join(__dirname, 'data.json');
 
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            return res.status(500).json({ message: 'Error reading file', error: err });
-        }
-        res.json(JSON.parse(data));
-    });
+ fs.readFile(filePath, 'utf8', (err, data) => {
+ if (err) {
+ return res.status(500).json({ message: 'Error reading file', error: err });
+ }
+ res.json(JSON.parse(data));
+ });
 });
 ```
 
@@ -101,21 +101,21 @@ If you want to **update JSON content**:
 
 ```js
 app.put('/update', (req, res) => {
-    const newData = req.body;
-    const filePath = path.join(__dirname, 'data.json');
+ const newData = req.body;
+ const filePath = path.join(__dirname, 'data.json');
 
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) return res.status(500).json({ message: 'Error reading file' });
+ fs.readFile(filePath, 'utf8', (err, data) => {
+ if (err) return res.status(500).json({ message: 'Error reading file' });
 
-        const json = JSON.parse(data);
-        const updatedData = { ...json, ...newData };
+ const json = JSON.parse(data);
+ const updatedData = { ...json, ...newData };
 
-        fs.writeFile(filePath, JSON.stringify(updatedData, null, 2), (err) => {
-            if (err) return res.status(500).json({ message: 'Error updating file' });
+ fs.writeFile(filePath, JSON.stringify(updatedData, null, 2), (err) => {
+ if (err) return res.status(500).json({ message: 'Error updating file' });
 
-            res.json({ message: 'File updated successfully!' });
-        });
-    });
+ res.json({ message: 'File updated successfully!' });
+ });
+ });
 });
 ```
 
@@ -125,12 +125,12 @@ app.put('/update', (req, res) => {
 
 ```js
 app.delete('/delete', (req, res) => {
-    const filePath = path.join(__dirname, 'data.json');
+ const filePath = path.join(__dirname, 'data.json');
 
-    fs.unlink(filePath, (err) => {
-        if (err) return res.status(500).json({ message: 'Error deleting file', error: err });
-        res.json({ message: 'File deleted successfully!' });
-    });
+ fs.unlink(filePath, (err) => {
+ if (err) return res.status(500).json({ message: 'Error deleting file', error: err });
+ res.json({ message: 'File deleted successfully!' });
+ });
 });
 ```
 
@@ -148,14 +148,14 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 ---
 
-## 💡 Tips
+## Tips
 
 1. Use **async/await with fs.promises** for cleaner code.
 2. Always validate the input before writing files.
 3. For **large files**, use `fs.createReadStream` or `fs.createWriteStream` to avoid memory issues.
 ---
 
-### 🔹 What happens without Multer
+### What happens without Multer
 
 If a file is sent without Multer:
 
@@ -163,15 +163,15 @@ If a file is sent without Multer:
 * `req.body` does not contain it
 * File data is lost
 
-📌 **Conclusion:**
+ **Conclusion:**
 
 > Express alone cannot process file uploads.
 
 ---
 
-# **2️⃣ Multer**
+# ** Multer**
 
-### 🔹 What Multer actually is
+### What Multer actually is
 
 Multer is **middleware**, not a library or framework.
 
@@ -179,7 +179,7 @@ Middleware means:
 
 > It runs **between request and response**.
 
-### 🔹 Multer’s responsibility
+### Multer’s responsibility
 
 Multer **does NOT**:
 
@@ -193,7 +193,7 @@ Multer **ONLY**:
 3. Temporarily stores them
 4. Attaches metadata to request object
 
-### 🔹 Why Multer is required
+### Why Multer is required
 
 Because:
 
@@ -201,15 +201,15 @@ Because:
 * Express does not parse those streams
 * Multer understands multipart boundaries
 
-📌 **Exam Definition:**
+ **Exam Definition:**
 
 > Multer is an Express middleware used to handle `multipart/form-data` for file uploads.
 
 ---
 
-# **3️⃣ Basic File Upload**
+# ** Basic File Upload**
 
-### 🔹 Installation (Why needed)
+### Installation (Why needed)
 
 ```bash
 npm install multer
@@ -220,24 +220,24 @@ This installs:
 * Multipart parser
 * File stream handler
 
-### 🔹 Multer Initialization
+### Multer Initialization
 
 ```js
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 ```
 
-### 🔹 What this line actually does
+### What this line actually does
 
 * Creates an uploads directory
 * Generates random filenames
 * Stores file on disk automatically
 
-### 🔹 Upload Route Explained Line‑by‑Line
+### Upload Route Explained Line‑by‑Line
 
 ```js
 app.post("/upload", upload.single("image"), (req, res) => {
-  res.send("File uploaded successfully");
+ res.send("File uploaded successfully");
 });
 ```
 
@@ -249,7 +249,7 @@ Execution flow:
 4. `req.file` is populated
 5. Route handler executes
 
-### 🔹 Frontend Form (Why enctype matters)
+### Frontend Form (Why enctype matters)
 
 ```html
 <form action="/upload" method="POST" enctype="multipart/form-data">
@@ -262,13 +262,13 @@ Without `enctype`:
 
 ---
 
-# **4️⃣ Storage Engines**
+# ** Storage Engines**
 
 Storage engine = **Where Multer keeps the file**
 
 ---
 
-## **🧠 Memory Storage**
+## ** Memory Storage**
 
 Memory Storage is a Multer storage engine in which uploaded files are temporarily stored in the server’s main memory (RAM) instead of being written to the server’s file system
 
@@ -277,19 +277,19 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 ```
 
-### 🔹 How memory storage works internally
+### How memory storage works internally
 
 * File chunks are read into RAM
 * Stored as a Buffer object
 * Deleted automatically after request ends
 
-### 🔹 Accessing memory data
+### Accessing memory data
 
 ```js
 req.file.buffer
 ```
 
-### 🔹 Why memory is used for cloud
+### Why memory is used for cloud
 
 Cloud APIs expect:
 
@@ -299,7 +299,7 @@ Cloud APIs expect:
 
 Memory storage provides exactly that.
 
-### 🔹 Risk explanation
+### Risk explanation
 
 If 100 users upload 10MB files:
 
@@ -308,27 +308,27 @@ If 100 users upload 10MB files:
 
 ---
 
-## **💾 Disk Storage**
+## ** Disk Storage**
 Disk Storage is a Multer storage engine in which uploaded files are permanently stored on the server’s physical storage (hard disk or SSD).
 
 ```js
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  }
+ destination: (req, file, cb) => {
+ cb(null, "uploads/");
+ },
+ filename: (req, file, cb) => {
+ cb(null, Date.now() + "-" + file.originalname);
+ }
 });
 ```
 
-### 🔹 Why filename function exists
+### Why filename function exists
 
 * Prevent overwriting
 * Ensure uniqueness
 * Improve traceability
 
-### 🔹 Disk storage lifecycle
+### Disk storage lifecycle
 
 1. File received
 2. Saved to disk
@@ -337,11 +337,11 @@ const storage = multer.diskStorage({
 
 ---
 
-# **5️⃣ Understanding `req.file` in Depth**
+# ** Understanding `req.file` in Depth**
 
 `req.file` is an **object created by Multer**.
 
-### 🔹 Why it exists
+### Why it exists
 
 It provides:
 
@@ -349,7 +349,7 @@ It provides:
 * File location
 * File content reference
 
-### 🔹 Important properties explained
+### Important properties explained
 
 * `originalname` → User’s file name
 * `mimetype` → File type
@@ -359,7 +359,7 @@ It provides:
 
 ---
 
-# **6️⃣ Working with `express.static`**
+# ** Working with `express.static`**
 
 ### What is `express.static`?
 
@@ -413,15 +413,15 @@ http://localhost:3000/uploads/profile.jpg
 
 ---
 
-# **7️⃣ Why Cloud Storage Is Industry Standard**
+# ** Why Cloud Storage Is Industry Standard**
 
-### 🔹 Server storage limitations
+### Server storage limitations
 
 * Disk is limited
 * No CDN
 * No auto optimization
 
-### 🔹 Cloud advantages
+### Cloud advantages
 
 * Infinite scaling
 * Global CDN
@@ -429,18 +429,18 @@ http://localhost:3000/uploads/profile.jpg
 
 ---
 
-# **8️⃣ Cloudinary**
+# ** Cloudinary**
 
 Cloudinary is a **media infrastructure service**.
 
-### 🔹 It solves
+### It solves
 
 * Storage
 * Optimization
 * Delivery
 * Transformation
 
-### 🔹 Why developers use it
+### Why developers use it
 
 * No image processing logic
 * No manual resizing
@@ -448,7 +448,7 @@ Cloudinary is a **media infrastructure service**.
 
 ---
 
-## 🔁 Multer + Cloudinary Execution Flow
+## Multer + Cloudinary Execution Flow
 
 ```
 Browser sends file
@@ -464,19 +464,19 @@ Optimized image URL
 
 ---
 
-## 🔹 Cloudinary Code (Same Example, Deep Explanation)
+## Cloudinary Code (Same Example, Deep Explanation)
 
 ```js
 app.post("/upload", upload.single("image"), async (req, res) => {
-  const result = await cloudinary.uploader.upload(
-    "data:image/png;base64," + req.file.buffer.toString("base64")
-  );
+ const result = await cloudinary.uploader.upload(
+ "data:image/png;base64," + req.file.buffer.toString("base64")
+ );
 
-  res.json({ imageUrl: result.secure_url });
+ res.json({ imageUrl: result.secure_url });
 });
 ```
 
-### 🔹 Line‑by‑Line Explanation
+### Line‑by‑Line Explanation
 
 * `upload.single()` → Multer intercepts
 * `req.file.buffer` → RAM file data
@@ -485,7 +485,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
 
 ---
 
-# **9️⃣ Real‑Time Media Processing** 
+# ** Real‑Time Media Processing**
 
 Cloudinary creates **dynamic versions** of images.
 
@@ -499,7 +499,7 @@ No duplicate files.
 
 ---
 
-# **🔟 Digital Asset Management (DAM) — Explained Properly**
+# ** Digital Asset Management (DAM) — Explained Properly**
 
 DAM means **centralized media control**.
 

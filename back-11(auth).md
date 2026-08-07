@@ -21,8 +21,8 @@ If valid → user is authenticated.
 
 ```js
 app.post('/login', async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) return res.status(401).send('Invalid credentials');
+ const user = await User.findOne({ email: req.body.email });
+ if (!user) return res.status(401).send('Invalid credentials');
 });
 ```
 
@@ -43,7 +43,7 @@ After authentication, system checks permissions.
 
 ```js
 if (req.user.role !== 'admin') {
-  return res.status(403).send('Forbidden');
+ return res.status(403).send('Forbidden');
 }
 ```
 
@@ -51,11 +51,11 @@ if (req.user.role !== 'admin') {
 
 ## Key Difference
 
-| Authentication    | Authorization           |
+| Authentication | Authorization |
 | ----------------- | ----------------------- |
-| Verifies identity | Verifies permission     |
-| Happens first     | Happens after login     |
-| Example: Login    | Example: Access control |
+| Verifies identity | Verifies permission |
+| Happens first | Happens after login |
+| Example: Login | Example: Access control |
 
 ---
 
@@ -71,9 +71,9 @@ Authentication = Identity
 Authorization = Permission
 
 ---
-# **2. Working with Passwords and Authentication - Cookie Authentication , OAuth** 
-Authentication 
-## 1️⃣ Password-Based Authentication (Traditional Login)
+# **2. Working with Passwords and Authentication - Cookie Authentication , OAuth**
+Authentication
+## Password-Based Authentication (Traditional Login)
 
 Let’s think first:
 
@@ -82,15 +82,15 @@ If a user registers with:
 * Email: `abc@gmail.com`
 * Password: `123456`
 
-❓ Should we store `"123456"` directly in database?
+ Should we store `"123456"` directly in database?
 
 Why not?
 
-👉 Tell me one risk of storing plain passwords.
+ Tell me one risk of storing plain passwords.
 
 ---
 
-### ✅ Correct Way: Hash Passwords
+### Correct Way: Hash Passwords
 
 We use **bcrypt**.
 
@@ -102,47 +102,47 @@ npm install bcrypt
 
 ---
 
-### 🔹 During Registration
+### During Registration
 
 ```js
 const bcrypt = require("bcrypt");
 
 app.post("/register", async (req, res) => {
-  const { email, password } = req.body;
+ const { email, password } = req.body;
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+ const hashedPassword = await bcrypt.hash(password, 10);
 
-  await User.create({
-    email,
-    password: hashedPassword
-  });
+ await User.create({
+ email,
+ password: hashedPassword
+ });
 
-  res.send("User Registered");
+ res.send("User Registered");
 });
 ```
 
-👉 What does `10` mean here? (Hint: security cost factor)
+ What does `10` mean here? (Hint: security cost factor)
 
 ---
 
-### 🔹 During Login
+### During Login
 
 ```js
 app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+ const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
-  if (!user) return res.send("User not found");
+ const user = await User.findOne({ email });
+ if (!user) return res.send("User not found");
 
-  const isMatch = await bcrypt.compare(password, user.password);
+ const isMatch = await bcrypt.compare(password, user.password);
 
-  if (!isMatch) return res.send("Wrong password");
+ if (!isMatch) return res.send("Wrong password");
 
-  res.send("Login successful");
+ res.send("Login successful");
 });
 ```
 
-💡 Flow:
+ Flow:
 
 1. User sends password
 2. We compare with hashed one
@@ -150,7 +150,7 @@ app.post("/login", async (req, res) => {
 
 ---
 
-## 2️⃣ Cookie-Based Authentication (Session Login)
+## Cookie-Based Authentication (Session Login)
 
 Now question:
 
@@ -179,9 +179,9 @@ npm install express-session
 const session = require("express-session");
 
 app.use(session({
-  secret: "mysecret",
-  resave: false,
-  saveUninitialized: false,
+ secret: "mysecret",
+ resave: false,
+ saveUninitialized: false,
 }));
 ```
 
@@ -191,15 +191,15 @@ app.use(session({
 
 ```js
 app.post("/login", async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
+ const user = await User.findOne({ email: req.body.email });
 
-  const isMatch = await bcrypt.compare(req.body.password, user.password);
+ const isMatch = await bcrypt.compare(req.body.password, user.password);
 
-  if (!isMatch) return res.send("Wrong password");
+ if (!isMatch) return res.send("Wrong password");
 
-  req.session.userId = user._id;
+ req.session.userId = user._id;
 
-  res.send("Logged in with session");
+ res.send("Logged in with session");
 });
 ```
 
@@ -209,17 +209,17 @@ app.post("/login", async (req, res) => {
 
 ```js
 app.get("/dashboard", (req, res) => {
-  if (!req.session.userId) {
-    return res.send("Please login");
-  }
+ if (!req.session.userId) {
+ return res.send("Please login");
+ }
 
-  res.send("Welcome to dashboard");
+ res.send("Welcome to dashboard");
 });
 ```
 
 ---
 
-💡 What happens internally?
+ What happens internally?
 
 1. Server creates session
 2. Server sends session ID in cookie
@@ -228,13 +228,13 @@ app.get("/dashboard", (req, res) => {
 
 ---
 
-## 3️⃣ OAuth Authentication (Google Login)
+## OAuth Authentication (Google Login)
 
 Now let’s think:
 
 Why do companies use "Login with Google"?
 
-👉 So they don't handle passwords.
+ So they don't handle passwords.
 
 We use:
 
@@ -258,23 +258,23 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 passport.use(new GoogleStrategy({
-    clientID: "GOOGLE_CLIENT_ID",
-    clientSecret: "GOOGLE_SECRET",
-    callbackURL: "/auth/google/callback"
-  },
-  async (accessToken, refreshToken, profile, done) => {
+ clientID: "GOOGLE_CLIENT_ID",
+ clientSecret: "GOOGLE_SECRET",
+ callbackURL: "/auth/google/callback"
+ },
+ async (accessToken, refreshToken, profile, done) => {
 
-    let user = await User.findOne({ googleId: profile.id });
+ let user = await User.findOne({ googleId: profile.id });
 
-    if (!user) {
-      user = await User.create({
-        googleId: profile.id,
-        name: profile.displayName
-      });
-    }
+ if (!user) {
+ user = await User.create({
+ googleId: profile.id,
+ name: profile.displayName
+ });
+ }
 
-    return done(null, user);
-  }
+ return done(null, user);
+ }
 ));
 ```
 
@@ -284,20 +284,20 @@ passport.use(new GoogleStrategy({
 
 ```js
 app.get("/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+ passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 app.get("/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/" }),
-  (req, res) => {
-    res.redirect("/dashboard");
-  }
+ passport.authenticate("google", { failureRedirect: "/" }),
+ (req, res) => {
+ res.redirect("/dashboard");
+ }
 );
 ```
 
 ---
 
-💡 OAuth Flow:
+ OAuth Flow:
 
 1. User clicks login
 2. Redirect to Google
@@ -308,19 +308,19 @@ app.get("/auth/google/callback",
 
 ---
 
-## 🔥 Now Let’s Compare Deeply
+## Now Let’s Compare Deeply
 
-| Feature            | Password     | Session (Cookie) | OAuth     |
+| Feature | Password | Session (Cookie) | OAuth |
 | ------------------ | ------------ | ---------------- | --------- |
-| Stores Password?   | Yes (hashed) | Yes (hashed)     | No        |
-| Uses Cookie?       | Optional     | Yes              | Yes       |
-| External Provider? | No           | No               | Yes       |
-| More Secure?       | Medium       | Medium           | High      |
-| Easy for Users?    | Normal       | Normal           | Very Easy |
+| Stores Password? | Yes (hashed) | Yes (hashed) | No |
+| Uses Cookie? | Optional | Yes | Yes |
+| External Provider? | No | No | Yes |
+| More Secure? | Medium | Medium | High |
+| Easy for Users? | Normal | Normal | Very Easy |
 
 ---
 
-## 🧠 Big Picture (Important)
+## Big Picture (Important)
 
 Think like this:
 
@@ -381,11 +381,11 @@ Authorization: Bearer <token>
 
 ## Comparison
 
-| Feature  | Session | JWT     |
+| Feature | Session | JWT |
 | -------- | ------- | ------- |
-| Storage  | Server  | Client  |
-| Scalable | Limited | High    |
-| Logout   | Easy    | Complex |
+| Storage | Server | Client |
+| Scalable | Limited | High |
+| Logout | Easy | Complex |
 
 ---
 
@@ -409,13 +409,13 @@ npm install jsonwebtoken
 const jwt = require('jsonwebtoken');
 
 app.post('/login', (req, res) => {
-  const user = { id: 1, role: 'user' };
+ const user = { id: 1, role: 'user' };
 
-  const token = jwt.sign(user, process.env.JWT_SECRET, {
-    expiresIn: '15m'
-  });
+ const token = jwt.sign(user, process.env.JWT_SECRET, {
+ expiresIn: '15m'
+ });
 
-  res.json({ token });
+ res.json({ token });
 });
 ```
 
@@ -425,16 +425,16 @@ app.post('/login', (req, res) => {
 
 ```js
 function authenticate(req, res, next) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return res.sendStatus(401);
+ const authHeader = req.headers.authorization;
+ if (!authHeader) return res.sendStatus(401);
 
-  const token = authHeader.split(' ')[1];
+ const token = authHeader.split(' ')[1];
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
+ jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+ if (err) return res.sendStatus(403);
+ req.user = user;
+ next();
+ });
 }
 ```
 
@@ -444,7 +444,7 @@ function authenticate(req, res, next) {
 
 ```js
 app.get('/dashboard', authenticate, (req, res) => {
-  res.send('Protected content');
+ res.send('Protected content');
 });
 ```
 
@@ -544,13 +544,13 @@ Example roles:
 
 ```js
 const userSchema = new mongoose.Schema({
-  email: String,
-  password: String,
-  role: {
-    type: String,
-    enum: ['admin', 'user'],
-    default: 'user'
-  }
+ email: String,
+ password: String,
+ role: {
+ type: String,
+ enum: ['admin', 'user'],
+ default: 'user'
+ }
 });
 ```
 
@@ -560,12 +560,12 @@ const userSchema = new mongoose.Schema({
 
 ```js
 function authorize(role) {
-  return (req, res, next) => {
-    if (req.user.role !== role) {
-      return res.status(403).send('Forbidden');
-    }
-    next();
-  };
+ return (req, res, next) => {
+ if (req.user.role !== role) {
+ return res.status(403).send('Forbidden');
+ }
+ next();
+ };
 }
 ```
 
@@ -575,7 +575,7 @@ function authorize(role) {
 
 ```js
 app.delete('/users', authenticate, authorize('admin'), (req, res) => {
-  res.send('User deleted');
+ res.send('User deleted');
 });
 ```
 
@@ -585,13 +585,12 @@ app.delete('/users', authenticate, authorize('admin'), (req, res) => {
 
 Authentication → Who you are
 Authorization (RBAC) → What you can do
-Good 👍 this is important for backend interviews.
+Good this is important for backend interviews.
 
 ---
 # **7. Passport.js**
 
-
-## 1️⃣ What Problem Does Passport Solve?
+## What Problem Does Passport Solve?
 
 Let’s think first.
 
@@ -607,13 +606,13 @@ With Passport:
 * It standardizes authentication
 * It separates **strategy** from **session**
 
-👉 Question for you:
+ Question for you:
 Is Passport handling database storage automatically?
 (Yes or No?)
 
 ---
 
-## 2️⃣ How Passport Actually Works (Mental Model)
+## How Passport Actually Works (Mental Model)
 
 Passport has 3 main parts:
 
@@ -628,7 +627,7 @@ Next request → deserializeUser → full user attached to `req.user`
 
 ---
 
-## 3️⃣ Local Strategy (Username + Password)
+## Local Strategy (Username + Password)
 
 Uses:
 
@@ -638,17 +637,17 @@ You wrote:
 
 ```js
 passport.use(new LocalStrategy(async (username, password, done) => {
-  const user = await User.findOne({ username });
-  if (!user) return done(null, false);
-  done(null, user);
+ const user = await User.findOne({ username });
+ if (!user) return done(null, false);
+ done(null, user);
 }));
 ```
 
-But something is missing here 👀
+But something is missing here
 
 Where is password verification?
 
-👉 What should we use to compare passwords?
+ What should we use to compare passwords?
 
 (Hint: hashing library)
 
@@ -660,19 +659,19 @@ Correct version should include:
 const bcrypt = require("bcrypt");
 
 passport.use(new LocalStrategy(async (username, password, done) => {
-  const user = await User.findOne({ username });
-  if (!user) return done(null, false);
+ const user = await User.findOne({ username });
+ if (!user) return done(null, false);
 
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return done(null, false);
+ const isMatch = await bcrypt.compare(password, user.password);
+ if (!isMatch) return done(null, false);
 
-  return done(null, user);
+ return done(null, user);
 }));
 ```
 
 ---
 
-## 4️⃣ Serialize & Deserialize (Very Important 🔥)
+## Serialize & Deserialize (Very Important )
 
 Most students get confused here.
 
@@ -680,11 +679,11 @@ Most students get confused here.
 
 ```js
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+ done(null, user.id);
 });
 ```
 
-👉 What are we storing in session here?
+ What are we storing in session here?
 Full user object or just ID?
 
 Why do we store only ID?
@@ -697,8 +696,8 @@ Think about performance.
 
 ```js
 passport.deserializeUser(async (id, done) => {
-  const user = await User.findById(id);
-  done(null, user);
+ const user = await User.findById(id);
+ done(null, user);
 });
 ```
 
@@ -712,7 +711,7 @@ req.user
 
 ---
 
-## 5️⃣ Google OAuth Strategy
+## Google OAuth Strategy
 
 Uses:
 
@@ -720,25 +719,25 @@ Uses:
 
 ```js
 passport.use(new GoogleStrategy({
-  clientID: process.env.GOOGLE_ID,
-  clientSecret: process.env.GOOGLE_SECRET,
-  callbackURL: '/auth/google/callback'
+ clientID: process.env.GOOGLE_ID,
+ clientSecret: process.env.GOOGLE_SECRET,
+ callbackURL: '/auth/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
 
-  let user = await User.findOne({ googleId: profile.id });
+ let user = await User.findOne({ googleId: profile.id });
 
-  if (!user) {
-    user = await User.create({
-      googleId: profile.id,
-      name: profile.displayName
-    });
-  }
+ if (!user) {
+ user = await User.create({
+ googleId: profile.id,
+ name: profile.displayName
+ });
+ }
 
-  done(null, user);
+ done(null, user);
 }));
 ```
 
-👉 Important question:
+ Important question:
 
 In Google OAuth,
 Do we ever receive the user’s password?
@@ -747,22 +746,22 @@ Do we ever receive the user’s password?
 
 ---
 
-## 6️⃣ Protecting Routes
+## Protecting Routes
 
 ```js
 function isAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) return next();
-  res.status(401).send('Unauthorized');
+ if (req.isAuthenticated()) return next();
+ res.status(401).send('Unauthorized');
 }
 ```
 
 Where does `req.isAuthenticated()` come from?
 
-👉 From Passport session middleware.
+ From Passport session middleware.
 
 ---
 
-## 7️⃣ Full Flow (Big Picture)
+## Full Flow (Big Picture)
 
 Let’s connect everything:
 

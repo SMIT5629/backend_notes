@@ -1,13 +1,13 @@
 
 ---
 
-# **📝 Logging Backend with Express.js**
+# ** Logging Backend with Express.js**
 
 This document explains **backend logging in Express.js**, why it is important, and how to use **Morgan, Winston, and Pino** with proper **error handling**.
 
 ---
 
-## 📌 Why is Logging Important?
+## Why is Logging Important?
 
 Logging is the process of recording events that happen inside a backend application.
 
@@ -19,33 +19,33 @@ Logging helps to:
 * Understand application crashes
 * Improve security and auditing
 
-❌ `console.log()` is not reliable
-✅ Logging libraries provide structured, timestamped, and persistent logs
+ `console.log()` is not reliable
+ Logging libraries provide structured, timestamped, and persistent logs
 
 ---
 
-## 🧠 Types of Logs
+## Types of Logs
 
-| Log Level | Description             |
+| Log Level | Description |
 | --------- | ----------------------- |
-| info      | Normal application flow |
-| warn      | Potential problem       |
-| error     | Application failure     |
-| debug     | Detailed internal info  |
+| info | Normal application flow |
+| warn | Potential problem |
+| error | Application failure |
+| debug | Detailed internal info |
 
 ---
 
-## 🧩 Logging Libraries in Express.js
+## Logging Libraries in Express.js
 
-| Library     | Purpose                             |
+| Library | Purpose |
 | ----------- | ----------------------------------- |
-| **Morgan**  | HTTP request logging                |
-| **Winston** | Application & error logging         |
-| **Pino**    | High-performance production logging |
+| **Morgan** | HTTP request logging |
+| **Winston** | Application & error logging |
+| **Pino** | High-performance production logging |
 
 ---
 
-# 1️⃣ Setting Up Morgan (HTTP Request Logging)
+# Setting Up Morgan (HTTP Request Logging)
 
 ## Install Morgan
 
@@ -68,9 +68,9 @@ Morgan logs:
 * Response time
 
 ---
-## 🔹 Morgan Modes
+## Morgan Modes
 
-### 1️⃣ dev
+### dev
 
 ```js
 app.use(morgan("dev"));
@@ -82,12 +82,12 @@ Output:
 GET /api/notes 200 15ms
 ```
 
-✔ Colored
-✔ Best for development
+ Colored
+ Best for development
 
 ---
 
-### 2️⃣ short
+### short
 
 ```js
 app.use(morgan("short"));
@@ -99,11 +99,11 @@ Output:
 GET /api/notes HTTP/1.1 200 15ms
 ```
 
-✔ Medium detail
+ Medium detail
 
 ---
 
-### 3️⃣ tiny
+### tiny
 
 ```js
 app.use(morgan("tiny"));
@@ -115,16 +115,16 @@ Output:
 GET /api/notes 200 -
 ```
 
-✔ Minimal logs
-✔ Low noise
+ Minimal logs
+ Low noise
 
 ---
 
-📌 Morgan logs **only HTTP requests**, not application errors.
+ Morgan logs **only HTTP requests**, not application errors.
 
 ---
 
-# 2️⃣ Setting Up Winston (Application Logging)
+# Setting Up Winston (Application Logging)
 
 ## Install Winston
 
@@ -134,24 +134,24 @@ npm install winston
 
 ## Create Winston Logger
 
-📁 `utils/logger.js`
+ `utils/logger.js`
 
 ```js
 const winston = require("winston");
 
 const logger = winston.createLogger({
-  level: "info",
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.json()
-  ),
-  transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({
-      filename: "error.log",
-      level: "error"
-    })
-  ]
+ level: "info",
+ format: winston.format.combine(
+ winston.format.timestamp(),
+ winston.format.json()
+ ),
+ transports: [
+ new winston.transports.Console(),
+ new winston.transports.File({
+ filename: "error.log",
+ level: "error"
+ })
+ ]
 });
 
 module.exports = logger;
@@ -165,14 +165,14 @@ module.exports = logger;
 const logger = require("./utils/logger");
 
 app.get("/success", (req, res) => {
-  logger.info("Success route called");
-  res.send("OK");
+ logger.info("Success route called");
+ res.send("OK");
 });
 ```
 
 ---
 
-# 3️⃣ Setting Up Pino (Fast Production Logging)
+# Setting Up Pino (Fast Production Logging)
 
 ## Install Pino
 
@@ -182,7 +182,7 @@ npm install pino pino-http
 
 ## Create Pino Logger
 
-📁 `utils/pinoLogger.js`
+ `utils/pinoLogger.js`
 
 ```js
 const pino = require("pino");
@@ -201,8 +201,8 @@ const logger = require("./utils/pinoLogger");
 app.use(pinoHttp({ logger }));
 ```
 
-📌 Pino automatically logs all requests
-📌 `req.log` is available inside routes
+ Pino automatically logs all requests
+ `req.log` is available inside routes
 
 ---
 
@@ -210,38 +210,38 @@ app.use(pinoHttp({ logger }));
 
 ```js
 app.get("/success", (req, res) => {
-  req.log.info("Route called");
-  res.send("OK");
+ req.log.info("Route called");
+ res.send("OK");
 });
 ```
 
 ---
 
-# 4️⃣ Error Handling and Logging (IMPORTANT)
+# Error Handling and Logging (IMPORTANT)
 
-## ❌ Wrong Way (No Logging)
+## Wrong Way (No Logging)
 
 ```js
 catch (err) {
-  res.status(500).send("Error");
+ res.status(500).send("Error");
 }
 ```
 
 ---
 
-## ✅ Correct Way (With Logging)
+## Correct Way (With Logging)
 
 ### Central Error Middleware (Winston)
 
 ```js
 app.use((err, req, res, next) => {
-  logger.error({
-    message: err.message,
-    stack: err.stack,
-    url: req.originalUrl
-  });
+ logger.error({
+ message: err.message,
+ stack: err.stack,
+ url: req.originalUrl
+ });
 
-  res.status(500).json({ message: "Internal Server Error" });
+ res.status(500).json({ message: "Internal Server Error" });
 });
 ```
 
@@ -251,34 +251,34 @@ app.use((err, req, res, next) => {
 
 ```js
 app.use((err, req, res, next) => {
-  req.log.error(err);
-  res.status(500).json({ message: "Something went wrong" });
+ req.log.error(err);
+ res.status(500).json({ message: "Something went wrong" });
 });
 ```
 
-✔ Error stored
-✔ Stack trace logged
-✔ Safe response to client
+ Error stored
+ Stack trace logged
+ Safe response to client
 
 ---
 
-## 🔁 Logging Flow Summary
+## Logging Flow Summary
 
 ```
 Client Request
-   ↓
+ ↓
 Morgan / Pino logs request
-   ↓
+ ↓
 Controller logic
-   ↓
+ ↓
 Winston / Pino logs app events
-   ↓
+ ↓
 Error middleware logs failures
 ```
 
 ---
 
-## 🧠 Memory Rule
+## Memory Rule
 
 * **Morgan** → HTTP requests
 * **Winston** → readable logs + files
@@ -286,7 +286,7 @@ Error middleware logs failures
 
 ---
 
-## ✅ Conclusion
+## Conclusion
 
 Logging is essential for backend reliability.
 A well-logged backend is easier to debug, monitor, and scale.

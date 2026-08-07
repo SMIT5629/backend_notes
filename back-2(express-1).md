@@ -24,8 +24,8 @@ Without Express:
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Hello World!');
+ res.writeHead(200, {'Content-Type': 'text/plain'});
+ res.end('Hello World!');
 });
 
 server.listen(3000, () => console.log('Server running on port 3000'));
@@ -38,13 +38,13 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+ res.send('Hello World!');
 });
 
 app.listen(3000, () => console.log('Server running on port 3000'));
 ```
 
-✅ Much simpler and cleaner.
+ Much simpler and cleaner.
 
 ---
 
@@ -72,12 +72,12 @@ const app = express();
 
 // Define a route
 app.get('/', (req, res) => {
-    res.send('Welcome to Express Server');
+ res.send('Welcome to Express Server');
 });
 
 // Start server
 app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+ console.log('Server is running on http://localhost:3000');
 });
 ```
 
@@ -91,7 +91,7 @@ Express provides multiple methods to send responses:
 
 ```js
 app.get('/text', (req, res) => {
-    res.send('This is a text response');
+ res.send('This is a text response');
 });
 ```
 
@@ -99,7 +99,7 @@ app.get('/text', (req, res) => {
 
 ```js
 app.get('/json', (req, res) => {
-    res.json({ name: 'Smit', age: 20 });
+ res.json({ name: 'Smit', age: 20 });
 });
 ```
 
@@ -107,7 +107,7 @@ app.get('/json', (req, res) => {
 
 ```js
 app.get('/file', (req, res) => {
-    res.sendFile(__dirname + '/sample.html');
+ res.sendFile(__dirname + '/sample.html');
 });
 ```
 
@@ -115,7 +115,7 @@ app.get('/file', (req, res) => {
 
 ```js
 app.get('/error', (req, res) => {
-    res.status(404).send('Page Not Found');
+ res.status(404).send('Page Not Found');
 });
 ```
 
@@ -123,19 +123,18 @@ app.get('/error', (req, res) => {
 
 # **4. Using Query Parameters and URL Parameters**
 
-
-## **🌐 1). What Are URL Parameters?**
+## ** 1). What Are URL Parameters?**
 
 URL parameters are **part of the actual route path**.
 They are used when you want to identify a **specific resource**.
 
-### 📌 General Form
+### General Form
 
 ```
 /resource/:parameterName
 ```
 
-### 📌 Example URL
+### Example URL
 
 ```
 /users/15
@@ -143,16 +142,16 @@ They are used when you want to identify a **specific resource**.
 
 Here, `15` is the value of the parameter `id`.
 
-### 📌 Express Example
+### Express Example
 
 ```js
 app.get('/users/:id', (req, res) => {
-  const userId = req.params.id;  
-  res.send(`User ID is: ${userId}`);
+ const userId = req.params.id;
+ res.send(`User ID is: ${userId}`);
 });
 ```
 
-### 👉 Output for `/users/15`
+### Output for `/users/15`
 
 ```
 User ID is: 15
@@ -164,41 +163,41 @@ Use them when the value is:
 
 * Required
 * A specific resource identifier
-  Examples:
+ Examples:
 * `/products/101`
 * `/posts/9/comments`
 * `/orders/823`
 
 ---
 
-## **🔍 2). What Are Query Parameters?**
+## ** 2). What Are Query Parameters?**
 
 Query parameters come **after the `?` in the URL**.
 They are optional and are used for **searching, filtering, sorting**, etc.
 
-### 📌 General Form
+### General Form
 
 ```
 /route?key=value&key2=value2
 ```
 
-### 📌 Example URL
+### Example URL
 
 ```
 /search?keyword=iphone&sort=asc
 ```
 
-### 📌 Express Example
+### Express Example
 
 ```js
 app.get('/search', (req, res) => {
-  const keyword = req.query.keyword;
-  const sort = req.query.sort;
-  res.send(`Searching for: ${keyword}, sorted by: ${sort}`);
+ const keyword = req.query.keyword;
+ const sort = req.query.sort;
+ res.send(`Searching for: ${keyword}, sorted by: ${sort}`);
 });
 ```
 
-### 👉 Output for:
+### Output for:
 
 ```
 /search?keyword=laptop&sort=desc
@@ -214,26 +213,26 @@ Use them when the value is:
 
 * Optional
 * Used for filters or settings
-  Examples:
+ Examples:
 * `/products?category=shoes&price=low`
 * `/search?q=javascript`
 * `/blogs?page=2&limit=10`
 
 ---
 
-## **🆚 3). URL Params vs Query Params (Quick Comparison)**
+## ** 3). URL Params vs Query Params (Quick Comparison)**
 
-| Feature           | URL Params             | Query Params                  |
+| Feature | URL Params | Query Params |
 | ----------------- | ---------------------- | ----------------------------- |
-| Format            | `/users/:id`           | `/users?id=10`                |
-| Required?         | Yes                    | Optional                      |
-| Used for          | Identifying a resource | Filtering, searching, sorting |
-| Access in Express | `req.params`           | `req.query`                   |
-| Example           | `/product/42`          | `/product?color=red&size=M`   |
+| Format | `/users/:id` | `/users?id=10` |
+| Required? | Yes | Optional |
+| Used for | Identifying a resource | Filtering, searching, sorting |
+| Access in Express | `req.params` | `req.query` |
+| Example | `/product/42` | `/product?color=red&size=M` |
 
 ---
 
-## **🎯 4). Combined Example (Both Together)**
+## ** 4). Combined Example (Both Together)**
 
 ### URL:
 
@@ -245,29 +244,27 @@ Use them when the value is:
 
 ```js
 app.get('/products/:id', (req, res) => {
-  const id = req.params.id;
-  const color = req.query.color;
-  const size = req.query.size;
+ const id = req.params.id;
+ const color = req.query.color;
+ const size = req.query.size;
 
-  res.send(`Product ${id}, Color: ${color}, Size: ${size}`);
+ res.send(`Product ${id}, Color: ${color}, Size: ${size}`);
 });
 ```
 
 ---
 
-
-
 # **5. HTTP Requests in Express**
 
 HTTP requests have **methods** that define action:
 
-| Method | Use Case             |
+| Method | Use Case |
 | ------ | -------------------- |
-| GET    | Retrieve data        |
-| POST   | Send/create data     |
-| PUT    | Update complete data |
-| PATCH  | Update partial data  |
-| DELETE | Delete data          |
+| GET | Retrieve data |
+| POST | Send/create data |
+| PUT | Update complete data |
+| PATCH | Update partial data |
+| DELETE | Delete data |
 
 **Example Routes:**
 
@@ -302,7 +299,7 @@ app.use(express.static('public'));
 ```
 
 3. Now files are accessible directly via URL:
-   `http://localhost:3000/index.html`
+ `http://localhost:3000/index.html`
 
 **Example Folder Structure:**
 
@@ -310,13 +307,13 @@ app.use(express.static('public'));
 project/
 ├── index.js
 └── public/
-    ├── index.html
-    └── style.css
+ ├── index.html
+ └── style.css
 ```
 
 ---
 
-### ✅ **Conclusion / Key Points**
+### **Conclusion / Key Points**
 
 * Express simplifies Node.js server creation.
 * Routes handle different URLs and HTTP methods.

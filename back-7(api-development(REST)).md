@@ -1,5 +1,5 @@
 
-# **1️⃣What is a REST API?**
+# **What is a REST API?**
 ---
 
 ## 1.1 What does REST mean?
@@ -49,27 +49,27 @@ const app = express();
 app.use(express.json());
 
 const users = [
-  { id: 1, name: "Smit" },
-  { id: 2, name: "Aashu" }
+ { id: 1, name: "Smit" },
+ { id: 2, name: "Aashu" }
 ];
 
 // GET all users
 app.get('/users', (req, res) => {
-  res.status(200).json(users);
+ res.status(200).json(users);
 });
 
 // GET single user by ID
 app.get('/users/:id', (req, res) => {
-  const user = users.find(u => u.id === parseInt(req.params.id));
-  if (!user) return res.status(404).json({ error: "User not found" });
-  res.json(user);
+ const user = users.find(u => u.id === parseInt(req.params.id));
+ if (!user) return res.status(404).json({ error: "User not found" });
+ res.json(user);
 });
 
 // POST new user
 app.post('/users', (req, res) => {
-  const newUser = { id: users.length + 1, name: req.body.name };
-  users.push(newUser);
-  res.status(201).json(newUser);
+ const newUser = { id: users.length + 1, name: req.body.name };
+ users.push(newUser);
+ res.status(201).json(newUser);
 });
 
 app.listen(3000, () => console.log("Server running on port 3000"));
@@ -77,16 +77,16 @@ app.listen(3000, () => console.log("Server running on port 3000"));
 
 **Breakdown:**
 
-| Part     | Meaning                      |
+| Part | Meaning |
 | -------- | ---------------------------- |
-| `/users` | Resource                     |
-| `GET`    | Fetch data                   |
-| `POST`   | Add new data                 |
-| `:id`    | Path parameter               |
-| `JSON`   | Data format                  |
+| `/users` | Resource |
+| `GET` | Fetch data |
+| `POST` | Add new data |
+| `:id` | Path parameter |
+| `JSON` | Data format |
 | `status` | HTTP status code for clarity |
 
-✅ You can actually **run this server** and test it in Postman.
+ You can actually **run this server** and test it in Postman.
 
 ---
 
@@ -98,10 +98,9 @@ app.listen(3000, () => console.log("Server running on port 3000"));
 4. **Resource-based URLs** → `/users`, `/orders`
 5. **Use HTTP status codes** → 200, 404, 500 etc
 
-
 ---
 
-# **2️⃣ REST API Versioning (`/v1/`)**
+# ** REST API Versioning (`/v1/`)**
 ---
 
 ## 2.1. Why API versioning is important
@@ -121,8 +120,8 @@ If clients (frontend/mobile apps) keep calling **old endpoints**:
 **Versioning solves this problem** by letting multiple versions coexist:
 
 ```http
-GET /api/v1/users   → old version, safe for existing apps
-GET /api/v2/users   → new version with extra fields
+GET /api/v1/users → old version, safe for existing apps
+GET /api/v2/users → new version with extra fields
 ```
 
 > Official REST guidelines (Fielding, 2000 – the REST thesis) recommend **URI versioning or header versioning** to maintain **backward compatibility**.
@@ -198,10 +197,10 @@ You **increment API version** when **breaking changes occur**:
 ```
 project/
 ├─ routes/
-│  ├─ v1/
-│  │  └─ users.js
-│  └─ v2/
-│     └─ users.js
+│ ├─ v1/
+│ │ └─ users.js
+│ └─ v2/
+│ └─ users.js
 └─ index.js
 ```
 
@@ -215,10 +214,10 @@ const router = express.Router();
 
 // GET all users (v1)
 router.get('/', (req, res) => {
-  res.json([
-    { id: 1, name: "Smit" },
-    { id: 2, name: "Aashu" }
-  ]);
+ res.json([
+ { id: 1, name: "Smit" },
+ { id: 2, name: "Aashu" }
+ ]);
 });
 
 module.exports = router;
@@ -234,10 +233,10 @@ const router = express.Router();
 
 // GET all users (v2) – added email field
 router.get('/', (req, res) => {
-  res.json([
-    { id: 1, name: "Smit", email: "smit@gmail.com" },
-    { id: 2, name: "Aashu", email: "aashu@gmail.com" }
-  ]);
+ res.json([
+ { id: 1, name: "Smit", email: "smit@gmail.com" },
+ { id: 2, name: "Aashu", email: "aashu@gmail.com" }
+ ]);
 });
 
 module.exports = router;
@@ -261,7 +260,7 @@ app.use('/api/v2/users', require('./routes/v2/users'));
 app.listen(3000, () => console.log("Server running on port 3000"));
 ```
 
-✅ Now you can test:
+ Now you can test:
 
 * `GET http://localhost:3000/api/v1/users` → returns **old format**
 * `GET http://localhost:3000/api/v2/users` → returns **new format with emails**
@@ -291,11 +290,11 @@ Official docs references:
 * For **minor non-breaking changes**, you can stay on the same version
 
 ---
-Perfect, Smit 💙! Let’s go **deep into Postman** like a real backend developer, covering **sending requests, saving collections, and writing tests**, with **real examples you can run with your Express APIs**. I’ll also explain **why and how each feature is used in development**.
+Perfect, Smit ! Let’s go **deep into Postman** like a real backend developer, covering **sending requests, saving collections, and writing tests**, with **real examples you can run with your Express APIs**. I’ll also explain **why and how each feature is used in development**.
 
 ---
 
-# **3️⃣ Using Postman for API Testing & Development** 
+# ** Using Postman for API Testing & Development**
 
 ---
 
@@ -329,11 +328,11 @@ Suppose you have this route in Express:
 ```js
 // index.js
 app.post('/api/v1/register', (req, res) => {
-  const { email, password, username } = req.body;
-  if (!email || !password || !username) {
-    return res.status(400).json({ error: "Missing fields" });
-  }
-  res.status(201).json({ message: "User registered", user: { email, username } });
+ const { email, password, username } = req.body;
+ if (!email || !password || !username) {
+ return res.status(400).json({ error: "Missing fields" });
+ }
+ res.status(201).json({ message: "User registered", user: { email, username } });
 });
 ```
 
@@ -346,9 +345,9 @@ app.post('/api/v1/register', (req, res) => {
 
 ```json
 {
-  "email": "smit@gmail.com",
-  "password": "123456",
-  "username": "SmitP"
+ "email": "smit@gmail.com",
+ "password": "123456",
+ "username": "SmitP"
 }
 ```
 
@@ -356,12 +355,12 @@ app.post('/api/v1/register', (req, res) => {
 
 ```json
 {
-  "message": "User registered",
-  "user": { "email": "smit@gmail.com", "username": "SmitP" }
+ "message": "User registered",
+ "user": { "email": "smit@gmail.com", "username": "SmitP" }
 }
 ```
 
-✅ This shows **request headers, body, status code, response time**, and allows you to debug quickly.
+ This shows **request headers, body, status code, response time**, and allows you to debug quickly.
 
 ---
 
@@ -370,10 +369,10 @@ app.post('/api/v1/register', (req, res) => {
 ```js
 // Express GET route
 app.get('/api/v1/users', (req, res) => {
-  res.json([
-    { id: 1, name: "Smit" },
-    { id: 2, name: "Aashu" }
-  ]);
+ res.json([
+ { id: 1, name: "Smit" },
+ { id: 2, name: "Aashu" }
+ ]);
 });
 ```
 
@@ -421,7 +420,7 @@ Postman lets you write **JavaScript-based tests** that run **after a request**:
 
 ```js
 pm.test("Status is 201", function () {
-    pm.response.to.have.status(201);
+ pm.response.to.have.status(201);
 });
 ```
 
@@ -429,8 +428,8 @@ pm.test("Status is 201", function () {
 
 ```js
 pm.test("Response has username", function () {
-    const jsonData = pm.response.json();
-    pm.expect(jsonData.user).to.have.property("username");
+ const jsonData = pm.response.json();
+ pm.expect(jsonData.user).to.have.property("username");
 });
 ```
 
@@ -438,11 +437,11 @@ pm.test("Response has username", function () {
 
 ```js
 pm.test("Response time < 200ms", function () {
-    pm.expect(pm.response.responseTime).to.be.below(200);
+ pm.expect(pm.response.responseTime).to.be.below(200);
 });
 ```
 
-✅ This is how you **ensure API behaves as expected**, even before frontend integration.
+ This is how you **ensure API behaves as expected**, even before frontend integration.
 
 ---
 
@@ -476,24 +475,24 @@ Then in request:
 
 ---
 
-### Mental Model 🧠
+### Mental Model
 
 ```
 Express API
-   ↓ HTTP
+ ↓ HTTP
 Postman Client
-   ↓ Send Request
-   ↓ Inspect Response
-   ↓ Run Tests / Save Collections
+ ↓ Send Request
+ ↓ Inspect Response
+ ↓ Run Tests / Save Collections
 Frontend (React / Mobile) consumes the API
 ```
 
 ---
-# **4️⃣Understanding and Working With Status code , 2xx (Success) , 4xx (Client Errors) , 5xx (Server Errors).** 
+# **Understanding and Working With Status code , 2xx (Success) , 4xx (Client Errors) , 5xx (Server Errors).**
 
 ---
 
-## 4.1 What is an HTTP Status Code? 
+## 4.1 What is an HTTP Status Code?
 
 When a **client (browser / frontend / Postman)** sends a request to a **server**, the server always replies with:
 
@@ -502,13 +501,13 @@ When a **client (browser / frontend / Postman)** sends a request to a **server**
 
 Think of the **status code as the server’s short explanation**.
 
-📌 Official definition (from HTTP spec / MDN idea):
+ Official definition (from HTTP spec / MDN idea):
 
 > HTTP status codes indicate whether a specific HTTP request has been successfully completed.
 
 ---
 
-## 4.2 Why Status Codes Matter 
+## 4.2 Why Status Codes Matter
 
 They help:
 
@@ -517,42 +516,42 @@ They help:
 * APIs behave predictably
 * Debug errors faster
 
-⚠️ Returning wrong status codes = bad API design
+ Returning wrong status codes = bad API design
 
 ---
 
 ## 4.3 Status Code Groups (Overview)
 
-| Range | Meaning      |
+| Range | Meaning |
 | ----- | ------------ |
-| 2xx   | Success      |
-| 4xx   | Client Error |
-| 5xx   | Server Error |
+| 2xx | Success |
+| 4xx | Client Error |
+| 5xx | Server Error |
 
 We’ll **deeply understand 2xx, 4xx, 5xx** one by one.
 
 ---
 
-# ✅ 2xx — Success Codes
+# 2xx — Success Codes
 
-➡️ Means: **Request was received, understood, and processed successfully**
+ Means: **Request was received, understood, and processed successfully**
 
-### 🔹 Common 2xx Codes
+### Common 2xx Codes
 
-| Code | Meaning    |
+| Code | Meaning |
 | ---- | ---------- |
-| 200  | OK         |
-| 201  | Created    |
-| 204  | No Content |
+| 200 | OK |
+| 201 | Created |
+| 204 | No Content |
 
 ---
 
-### 🔸 200 OK (Most Common)
+### 200 OK (Most Common)
 
 **When to use:**
-✔ Data fetched successfully
-✔ Login success
-✔ Normal response
+ Data fetched successfully
+ Login success
+ Normal response
 
 **Example (Express):**
 
@@ -560,15 +559,15 @@ We’ll **deeply understand 2xx, 4xx, 5xx** one by one.
 res.status(200).json({ message: "User fetched successfully" });
 ```
 
-📌 Real-world analogy:
-You ordered food → food arrives → everything fine ✅
+ Real-world analogy:
+You ordered food → food arrives → everything fine
 
 ---
 
-### 🔸 201 Created
+### 201 Created
 
 **When to use:**
-✔ New resource created (POST request)
+ New resource created (POST request)
 
 **Example:**
 
@@ -576,16 +575,16 @@ You ordered food → food arrives → everything fine ✅
 res.status(201).json({ message: "User registered successfully" });
 ```
 
-📌 Important:
+ Important:
 201 is **better than 200** for creation
 
 ---
 
-### 🔸 204 No Content
+### 204 No Content
 
 **When to use:**
-✔ Request succeeded but no data to return
-✔ Delete operation
+ Request succeeded but no data to return
+ Delete operation
 
 **Example:**
 
@@ -593,54 +592,54 @@ res.status(201).json({ message: "User registered successfully" });
 res.status(204).send();
 ```
 
-📌 No JSON, no message — just success
+ No JSON, no message — just success
 
 ---
 
-# ❌ 4xx — Client Errors
+# 4xx — Client Errors
 
-➡️ Means: **Client made a mistake**
+ Means: **Client made a mistake**
 
-⚠️ Server is working fine
-⚠️ Request is wrong
+ Server is working fine
+ Request is wrong
 
 ---
 
-### 🔹 Common 4xx Codes
+### Common 4xx Codes
 
-| Code | Meaning          |
+| Code | Meaning |
 | ---- | ---------------- |
-| 400  | Bad Request      |
-| 401  | Unauthorized     |
-| 403  | Forbidden        |
-| 404  | Not Found        |
-| 422  | Validation Error |
+| 400 | Bad Request |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 404 | Not Found |
+| 422 | Validation Error |
 
 ---
 
-### 🔸 400 Bad Request
+### 400 Bad Request
 
 **When to use:**
-✔ Missing fields
-✔ Invalid data
+ Missing fields
+ Invalid data
 
 **Example:**
 
 ```js
 if (!email) {
-  return res.status(400).json({ error: "Email is required" });
+ return res.status(400).json({ error: "Email is required" });
 }
 ```
 
-📌 Client sent **wrong input**
+ Client sent **wrong input**
 
 ---
 
-### 🔸 401 Unauthorized
+### 401 Unauthorized
 
 **When to use:**
-✔ No login
-✔ Invalid token
+ No login
+ Invalid token
 
 **Example:**
 
@@ -648,15 +647,15 @@ if (!email) {
 res.status(401).json({ error: "Please login first" });
 ```
 
-📌 Meaning: *“Who are you?”*
+ Meaning: *“Who are you?”*
 
 ---
 
-### 🔸 403 Forbidden
+### 403 Forbidden
 
 **When to use:**
-✔ User is logged in
-✔ But not allowed
+ User is logged in
+ But not allowed
 
 **Example:**
 
@@ -664,17 +663,17 @@ res.status(401).json({ error: "Please login first" });
 res.status(403).json({ error: "Access denied" });
 ```
 
-📌 Difference:
+ Difference:
 
 * 401 → not logged in
 * 403 → logged in but **no permission**
 
 ---
 
-### 🔸 404 Not Found
+### 404 Not Found
 
 **When to use:**
-✔ Resource doesn’t exist
+ Resource doesn’t exist
 
 **Example:**
 
@@ -682,63 +681,63 @@ res.status(403).json({ error: "Access denied" });
 res.status(404).json({ error: "User not found" });
 ```
 
-📌 URL exists, but data doesn’t
+ URL exists, but data doesn’t
 
 ---
 
-# 🔥 5xx — Server Errors
+# 5xx — Server Errors
 
-➡️ Means: **Server failed**
+ Means: **Server failed**
 
-⚠️ Client request was correct
-⚠️ Bug / crash / DB issue
+ Client request was correct
+ Bug / crash / DB issue
 
 ---
 
-### 🔹 Common 5xx Codes
+### Common 5xx Codes
 
-| Code | Meaning               |
+| Code | Meaning |
 | ---- | --------------------- |
-| 500  | Internal Server Error |
-| 502  | Bad Gateway           |
-| 503  | Service Unavailable   |
+| 500 | Internal Server Error |
+| 502 | Bad Gateway |
+| 503 | Service Unavailable |
 
 ---
 
-### 🔸 500 Internal Server Error
+### 500 Internal Server Error
 
 **When to use:**
-✔ Unexpected error
-✔ Database crash
-✔ Bug in code
+ Unexpected error
+ Database crash
+ Bug in code
 
 **Example:**
 
 ```js
 try {
-  // DB logic
+ // DB logic
 } catch (error) {
-  res.status(500).json({ error: "Something went wrong" });
+ res.status(500).json({ error: "Something went wrong" });
 }
 ```
 
-📌 Never expose real error to client
+ Never expose real error to client
 
 ---
 
 ## 4.4 Very Important Rule (Official Best Practice)
 
-✔ Always return **correct status code**
-✔ Don’t send `200 OK` for errors
-✔ Frontend depends on it
+ Always return **correct status code**
+ Don’t send `200 OK` for errors
+ Frontend depends on it
 
-❌ Bad:
+ Bad:
 
 ```js
 res.status(200).json({ error: "Invalid password" });
 ```
 
-✅ Good:
+ Good:
 
 ```js
 res.status(401).json({ error: "Invalid password" });
@@ -746,17 +745,17 @@ res.status(401).json({ error: "Invalid password" });
 
 ---
 
-## 🧠 Quick Memory Trick
+## Quick Memory Trick
 
 * **2xx → “I did it”**
 * **4xx → “You messed up”**
 * **5xx → “I messed up”**
 
 ---
-# **5️⃣ Validating API Inputs Using libraries like express-validator or Sanitization .**
+# ** Validating API Inputs Using libraries like express-validator or Sanitization .**
 ---
 
-## 5.1 Why API Input Validation is REQUIRED 
+## 5.1 Why API Input Validation is REQUIRED
 
 **Client input is never trusted.**
 Validation ensures:
@@ -766,7 +765,7 @@ Validation ensures:
 * Prevents bad data reaching DB
 * Reduces crashes & security risks
 
-📌 Official idea (Express ecosystem + OWASP):
+ Official idea (Express ecosystem + OWASP):
 
 > Always validate and sanitize user input on the server side.
 
@@ -774,9 +773,9 @@ Validation ensures:
 
 ## 5.2 Validation vs Sanitization
 
-| Term         | Meaning                      |
+| Term | Meaning |
 | ------------ | ---------------------------- |
-| Validation   | Checking data is **correct** |
+| Validation | Checking data is **correct** |
 | Sanitization | Cleaning data to be **safe** |
 
 ### Example:
@@ -784,7 +783,7 @@ Validation ensures:
 Input:
 
 ```text
-email = "   USER@GMAIL.COM   "
+email = " USER@GMAIL.COM "
 ```
 
 * **Validation** → Is this a valid email?
@@ -794,8 +793,8 @@ email = "   USER@GMAIL.COM   "
 
 ## 5.3 express-validator (Officially Recommended)
 
-📌 Built on **validator.js** (industry standard)
-📌 Used by Express community
+ Built on **validator.js** (industry standard)
+ Used by Express community
 
 Install:
 
@@ -811,8 +810,8 @@ express-validator works as **middleware**.
 
 ```js
 [
-  validation rules,
-  validation result checker
+ validation rules,
+ validation result checker
 ]
 ```
 
@@ -824,7 +823,7 @@ Think:
 
 ## 5.5 Example: User Registration API
 
-### Step 1️⃣ Import tools
+### Step Import tools
 
 ```js
 const { body, validationResult } = require("express-validator");
@@ -832,39 +831,39 @@ const { body, validationResult } = require("express-validator");
 
 ---
 
-### Step 2️⃣ Add validation rules
+### Step Add validation rules
 
 ```js
 app.post(
-  "/register",
+ "/register",
 
-  // 🔹 Validation rules
-  [
-    body("email")
-      .isEmail()
-      .withMessage("Invalid email"),
+ // Validation rules
+ [
+ body("email")
+ .isEmail()
+ .withMessage("Invalid email"),
 
-    body("password")
-      .isLength({ min: 6 })
-      .withMessage("Password must be at least 6 characters"),
+ body("password")
+ .isLength({ min: 6 })
+ .withMessage("Password must be at least 6 characters"),
 
-    body("age")
-      .isInt({ min: 18 })
-      .withMessage("Age must be 18+"),
-  ],
+ body("age")
+ .isInt({ min: 18 })
+ .withMessage("Age must be 18+"),
+ ],
 
-  // 🔹 Controller
-  (req, res) => {
-    const errors = validationResult(req);
+ // Controller
+ (req, res) => {
+ const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      return res.status(422).json({
-        errors: errors.array(),
-      });
-    }
+ if (!errors.isEmpty()) {
+ return res.status(422).json({
+ errors: errors.array(),
+ });
+ }
 
-    res.status(201).json({ message: "User registered successfully" });
-  }
+ res.status(201).json({ message: "User registered successfully" });
+ }
 );
 ```
 
@@ -872,12 +871,12 @@ app.post(
 
 ## 5.6 Why Status Code **422** Here?
 
-📌 **422 Unprocessable Entity**
+ **422 Unprocessable Entity**
 
 * Syntax is correct
 * Data format is wrong
 
-✔ Official REST practice
+ Official REST practice
 
 ---
 
@@ -891,20 +890,20 @@ express-validator also supports sanitization.
 body("email").trim().normalizeEmail()
 ```
 
-✔ Removes spaces
-✔ Lowercases email
-✔ Prevents duplicates
+ Removes spaces
+ Lowercases email
+ Prevents duplicates
 
 ---
 
 ## 5.8 Common Sanitization Methods
 
-| Method        | Purpose             |
+| Method | Purpose |
 | ------------- | ------------------- |
-| trim()        | Remove spaces       |
-| escape()      | Prevent HTML/script |
-| toInt()       | Convert to number   |
-| toLowerCase() | Normalize text      |
+| trim() | Remove spaces |
+| escape() | Prevent HTML/script |
+| toInt() | Convert to number |
+| toLowerCase() | Normalize text |
 
 ---
 
@@ -928,15 +927,15 @@ Stored safely as text, not executed.
 
 ## 5.10 Clean & Professional Pattern (Best Practice)
 
-Create reusable validator file 👇
+Create reusable validator file
 
 ```js
 // validators/userValidator.js
 const { body } = require("express-validator");
 
 exports.registerValidator = [
-  body("email").isEmail(),
-  body("password").isLength({ min: 6 }),
+ body("email").isEmail(),
+ body("password").isLength({ min: 6 }),
 ];
 ```
 
@@ -948,7 +947,7 @@ app.post("/register", registerValidator, controller);
 
 ---
 
-## 🧠 Quick Memory Rule
+## Quick Memory Rule
 
 * **Validation** → Is it correct?
 * **Sanitization** → Is it safe?
@@ -956,10 +955,10 @@ app.post("/register", registerValidator, controller);
 * **Middleware** → Runs before controller
 
 ---
-# 6️⃣**Security Handling - Rate Limiting with express-rate-limit ,XSS Attack , CSRF Attack , DOS Attack.**
+# **Security Handling - Rate Limiting with express-rate-limit ,XSS Attack , CSRF Attack , DOS Attack.**
 ---
 
-##  Why Security Handling is Needed (Big Picture)
+## Why Security Handling is Needed (Big Picture)
 
 Any public API is exposed to:
 
@@ -968,7 +967,7 @@ Any public API is exposed to:
 * Fake form submissions (CSRF)
 * Abuse without authentication
 
-📌 **Golden rule (OWASP):**
+ **Golden rule (OWASP):**
 
 > Never trust client input or client behavior.
 
@@ -976,9 +975,9 @@ Any public API is exposed to:
 
 ## 6.1: Rate Limiting (DoS Protection)
 
-###  What is Rate Limiting?
+### What is Rate Limiting?
 
-👉 Restricts **how many requests** a client can make in a given time.
+ Restricts **how many requests** a client can make in a given time.
 
 **Prevents:**
 
@@ -1004,15 +1003,15 @@ npm install express-rate-limit
 const rateLimit = require("express-rate-limit");
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // 100 requests per IP
-  message: "Too many requests, try later",
+ windowMs: 15 * 60 * 1000, // 15 minutes
+ max: 100, // 100 requests per IP
+ message: "Too many requests, try later",
 });
 
 app.use(limiter);
 ```
 
-📌 Meaning:
+ Meaning:
 
 * Same IP
 * Max 100 requests
@@ -1034,7 +1033,7 @@ app.use("/login", loginLimiter);
 
 ### What is XSS?
 
-👉 Attacker injects **malicious JavaScript** into your app.
+ Attacker injects **malicious JavaScript** into your app.
 
 ### Example Attack Input:
 
@@ -1042,7 +1041,7 @@ app.use("/login", loginLimiter);
 <script>alert("Hacked")</script>
 ```
 
-If stored and rendered → script executes ❌
+If stored and rendered → script executes
 
 ---
 
@@ -1073,7 +1072,7 @@ const helmet = require("helmet");
 app.use(helmet());
 ```
 
-📌 Helmet sets safe HTTP headers automatically.
+ Helmet sets safe HTTP headers automatically.
 
 ---
 
@@ -1088,7 +1087,7 @@ app.use(helmet());
 
 ### What is CSRF?
 
-👉 Logged-in user unknowingly performs an action.
+ Logged-in user unknowingly performs an action.
 
 ### Example:
 
@@ -1096,7 +1095,7 @@ app.use(helmet());
 * You visit malicious site
 * That site sends a request to bank.com using your cookies
 
-💥 Money transferred without consent
+ Money transferred without consent
 
 ---
 
@@ -1120,11 +1119,11 @@ const csrf = require("csurf");
 const csrfProtection = csrf({ cookie: true });
 
 app.post("/transfer", csrfProtection, (req, res) => {
-  res.send("Money transferred");
+ res.send("Money transferred");
 });
 ```
 
-📌 Token must match → request allowed
+ Token must match → request allowed
 
 ---
 
@@ -1137,54 +1136,54 @@ If you use:
 
 ---
 
-##  6.4: DoS (Denial of Service)
+## 6.4: DoS (Denial of Service)
 
 ### What is DoS?
 
-👉 Overwhelming server with:
+ Overwhelming server with:
 
 * Huge traffic
 * Infinite requests
 * Heavy payloads
 
-Result: Server crash ❌
+Result: Server crash
 
 ---
 
 ### DoS Protection Techniques
 
-### 1️⃣ Rate Limiting (Already covered)
+### Rate Limiting (Already covered)
 
-✔ Primary defense
+ Primary defense
 
-### 2️⃣ Limit JSON body size
+### Limit JSON body size
 
 ```js
 app.use(express.json({ limit: "10kb" }));
 ```
 
-### 3️⃣ Timeout & Error Handling
+### Timeout & Error Handling
 
-✔ Prevent long-running requests
+ Prevent long-running requests
 
 ---
 
-## 🧠 Quick Comparison Table
+## Quick Comparison Table
 
-| Attack      | What it Does    | Protection      |
+| Attack | What it Does | Protection |
 | ----------- | --------------- | --------------- |
-| XSS         | Injects JS      | Escape + Helmet |
-| CSRF        | Fake requests   | CSRF tokens     |
-| DoS         | Floods server   | Rate limiting   |
-| Brute Force | Guess passwords | Rate limiting   |
+| XSS | Injects JS | Escape + Helmet |
+| CSRF | Fake requests | CSRF tokens |
+| DoS | Floods server | Rate limiting |
+| Brute Force | Guess passwords | Rate limiting |
 
 ---
 
-## 🧠 Memory Trick
+## Memory Trick
 
 * **XSS** → Script inside input
 * **CSRF** → Fake request using cookies
 * **DoS** → Too many requests
-* **Rate limit** → Traffic control 🚦
+* **Rate limit** → Traffic control
 
 ---

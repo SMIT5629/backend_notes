@@ -11,31 +11,31 @@
 
 ---
 
-# **1️⃣ Relational vs Non-Relational Databases**
+# ** Relational vs Non-Relational Databases**
 ---
 
-### 🔸 Relational Database (MySQL)
+### Relational Database (MySQL)
 
 Think like **Excel tables** with strict rules.
 
-📌 **Structure**
+ **Structure**
 
 * Tables
 * Rows
 * Columns
 * Fixed schema
 
-📌 **Example: MySQL**
+ **Example: MySQL**
 
 ```
 Users Table
 --------------------------------
-id | name   | email
-1  | Smit   | smit@gmail.com
-2  | Rahul  | rahul@gmail.com
+id | name | email
+1 | Smit | smit@gmail.com
+2 | Rahul | rahul@gmail.com
 ```
 
-📌 **Rules**
+ **Rules**
 
 * Schema is fixed
 * Relationships using **Foreign Keys**
@@ -43,28 +43,28 @@ id | name   | email
 
 ---
 
-### 🔸 Non-Relational Database (MongoDB)
+### Non-Relational Database (MongoDB)
 
 Think like **JSON objects** stored inside collections.
 
-📌 **Structure**
+ **Structure**
 
 * Database
 * Collections
 * Documents (JSON-like)
 
-📌 **Example: MongoDB**
+ **Example: MongoDB**
 
 ```json
 {
-  "_id": "1",
-  "name": "Smit",
-  "email": "smit@gmail.com",
-  "skills": ["JS", "Node", "MongoDB"]
+ "_id": "1",
+ "name": "Smit",
+ "email": "smit@gmail.com",
+ "skills": ["JS", "Node", "MongoDB"]
 }
 ```
 
-📌 **Rules**
+ **Rules**
 
 * Schema is flexible
 * Easy to scale
@@ -72,47 +72,46 @@ Think like **JSON objects** stored inside collections.
 
 ---
 
-### 🔥 MySQL vs MongoDB (Quick Table)
+### MySQL vs MongoDB (Quick Table)
 
-| Feature     | MySQL          | MongoDB          |
+| Feature | MySQL | MongoDB |
 | ----------- | -------------- | ---------------- |
-| Type        | Relational     | Non-Relational   |
-| Schema      | Fixed          | Flexible         |
+| Type | Relational | Non-Relational |
+| Schema | Fixed | Flexible |
 | Data Format | Rows & Columns | JSON (Documents) |
-| Scaling     | Vertical       | Horizontal       |
-| Used in     | Banking        | Web Apps, APIs   |
+| Scaling | Vertical | Horizontal |
+| Used in | Banking | Web Apps, APIs |
 
 ---
 
-
-# **2️⃣ What is MongoDB? Why Use It?**
+# ** What is MongoDB? Why Use It?**
 ---
 
-### 🔸 What is MongoDB?
+### What is MongoDB?
 
 MongoDB is a **NoSQL (Non-Relational) database** that stores data in **documents**, not tables.
 
-📌 Each document looks like a JavaScript object:
+ Each document looks like a JavaScript object:
 
 ```json
 {
-  name: "Smit",
-  age: 21,
-  skills: ["Node", "MongoDB"]
+ name: "Smit",
+ age: 21,
+ skills: ["Node", "MongoDB"]
 }
 ```
 
-📌 These documents are stored inside a **collection**
-📌 Collections are stored inside a **database**
+ These documents are stored inside a **collection**
+ Collections are stored inside a **database**
 
 ---
 
-### 🔸 MongoDB Structure (Very Important)
+### MongoDB Structure (Very Important)
 
 ```
 Database
  └── Collection
-      └── Document
+ └── Document
 ```
 
 Example:
@@ -120,14 +119,14 @@ Example:
 ```
 collegeDB
  └── students
-      └── { name: "Smit", branch: "CSE" }
+ └── { name: "Smit", branch: "CSE" }
 ```
 
 ---
 
-### 🔸 Why Use MongoDB? (Real Reasons)
+### Why Use MongoDB? (Real Reasons)
 
-✅ **Schema Flexible**
+ **Schema Flexible**
 
 * You can add new fields anytime
 
@@ -136,46 +135,46 @@ collegeDB
 { name: "Amit", age: 22 }
 ```
 
-✅ **Fast Development**
+ **Fast Development**
 
 * No need to design tables first
 
-✅ **Scales Easily**
+ **Scales Easily**
 
 * Used by Netflix, Uber, Airbnb
 
-✅ **Perfect for APIs**
+ **Perfect for APIs**
 
 * Works smoothly with Express & Node
 
 ---
 
-### 🔥 Real-World Example
+### Real-World Example
 
 Instagram post data:
 
 ```json
 {
-  user: "smit",
-  caption: "Learning MongoDB",
-  likes: 120,
-  comments: [
-    { user: "rahul", text: "Nice!" }
-  ]
+ user: "smit",
+ caption: "Learning MongoDB",
+ likes: 120,
+ comments: [
+ { user: "rahul", text: "Nice!" }
+ ]
 }
 ```
 
-👉 Very hard in MySQL
-👉 Very easy in MongoDB
+ Very hard in MySQL
+ Very easy in MongoDB
 
 ---
 
-### 🧠 One-Line Memory Trick
+### One-Line Memory Trick
 
 > **MongoDB = JSON + Flexibility + Speed**
 
 ---
-### ✅ Why MongoDB is better suited for Node.js than MySQL ?
+### Why MongoDB is better suited for Node.js than MySQL ?
 
 MongoDB is better for Node.js **because both work with JSON-like data**.
 
@@ -183,14 +182,14 @@ MongoDB is better for Node.js **because both work with JSON-like data**.
 * **MongoDB** stores data as **JSON documents (BSON)**
 * So → **no conversion headache**, faster development, cleaner code
 
-👉 In MySQL, you convert **tables → objects → JSON**
-👉 In MongoDB, it’s **JSON → JSON** (simple & fast)
+ In MySQL, you convert **tables → objects → JSON**
+ In MongoDB, it’s **JSON → JSON** (simple & fast)
 
 ---
-Perfect 👍
+Perfect
 We’ll go **hands-on now**, very light theory.
 
-# **3️⃣MongoDB Compass + Terminal (mongosh)**
+# **MongoDB Compass + Terminal (mongosh)**
 ---
 
 I’ll assume **Windows** (tell me later if different).
@@ -201,8 +200,8 @@ I’ll assume **Windows** (tell me later if different).
 
 ### What is MongoDB Compass?
 
-👉 **Official GUI tool** from MongoDB
-👉 Used to **visually see databases, collections & documents**
+ **Official GUI tool** from MongoDB
+ Used to **visually see databases, collections & documents**
 
 Think of it like:
 
@@ -231,11 +230,11 @@ mongodb://localhost:27017
 
 ### What you can do in Compass
 
-✅ Create database
-✅ Create collection
-✅ Insert documents
-✅ View & edit data
-✅ Run queries (filter, sort)
+ Create database
+ Create collection
+ Insert documents
+ View & edit data
+ Run queries (filter, sort)
 
 ---
 
@@ -243,8 +242,8 @@ mongodb://localhost:27017
 
 ### What is mongosh?
 
-👉 **MongoDB Shell**
-👉 Used to interact with MongoDB using commands
+ **MongoDB Shell**
+ Used to interact with MongoDB using commands
 
 Think of it like:
 
@@ -269,7 +268,7 @@ test>
 
 ---
 
-##  **3. Basic mongosh Commands (Very Important)**
+## **3. Basic mongosh Commands (Very Important)**
 
 ### Show databases
 
@@ -283,7 +282,7 @@ show dbs
 use collegeDB
 ```
 
-👉 If DB doesn’t exist → MongoDB creates it automatically
+ If DB doesn’t exist → MongoDB creates it automatically
 
 ---
 
@@ -291,9 +290,9 @@ use collegeDB
 
 ```js
 db.students.insertOne({
-  name: "Smit",
-  branch: "CSE",
-  age: 21
+ name: "Smit",
+ branch: "CSE",
+ age: 21
 })
 ```
 
@@ -307,16 +306,16 @@ db.students.find()
 
 ---
 
-## 🔥 What just happened?
+## What just happened?
 
 * `collegeDB` → database
 * `students` → collection
 * `{}` → document (JSON-like)
 
 ---
-Nice 👍 let’s continue — still **simple + practical**.
+Nice let’s continue — still **simple + practical**.
 
-# **4️⃣ MongoDB Local vs MongoDB Cloud (Atlas)**
+# ** MongoDB Local vs MongoDB Cloud (Atlas)**
 
 ---
 
@@ -324,8 +323,8 @@ Nice 👍 let’s continue — still **simple + practical**.
 
 ### What does “local” mean?
 
-👉 MongoDB runs **on your own system**
-👉 Data stored on **your hard disk**
+ MongoDB runs **on your own system**
+ Data stored on **your hard disk**
 
 ### When to use local MongoDB?
 
@@ -338,7 +337,7 @@ Nice 👍 let’s continue — still **simple + practical**.
 
 ```
 Node.js App
-   ↓
+ ↓
 MongoDB (localhost)
 ```
 
@@ -354,8 +353,8 @@ mongodb://localhost:27017/collegeDB
 
 ### What is MongoDB Atlas?
 
-👉 **Official cloud service** by MongoDB
-👉 Database runs on **internet servers**
+ **Official cloud service** by MongoDB
+ Database runs on **internet servers**
 
 ### When to use Atlas?
 
@@ -367,7 +366,7 @@ mongodb://localhost:27017/collegeDB
 
 ```
 Node.js App
-   ↓ (internet)
+ ↓ (internet)
 MongoDB Atlas (cloud)
 ```
 
@@ -381,31 +380,31 @@ mongodb+srv://username:password@cluster0.mongodb.net/collegeDB
 
 ---
 
-## 🔥 Local vs Cloud (Simple Table)
+## Local vs Cloud (Simple Table)
 
-| Feature         | Local MongoDB | Atlas (Cloud)     |
+| Feature | Local MongoDB | Atlas (Cloud) |
 | --------------- | ------------- | ----------------- |
-| Internet needed | ❌             | ✅                 |
-| Speed           | Very fast     | Network dependent |
-| Use case        | Learning      | Production        |
-| Backup          | Manual        | Automatic         |
+| Internet needed | | |
+| Speed | Very fast | Network dependent |
+| Use case | Learning | Production |
+| Backup | Manual | Automatic |
 
 ---
 
-### ⚠️ Important Rule (Real-life)
+### Important Rule (Real-life)
 
-❌ Never use local MongoDB for live users
-✅ Use Atlas for hosted apps
+ Never use local MongoDB for live users
+ Use Atlas for hosted apps
 
 ---
-Got it 👍
+Got it
 Let’s explain **exactly as your prompt says** — **Datatypes, Collections, and Documents**, **step-by-step**, **well-structured**, **no extra theory**, with **clear examples**.
 
 ---
 
-# **5️⃣Understanding Datatypes, Collections & Documents** (MongoDB)
+# **Understanding Datatypes, Collections & Documents** (MongoDB)
 
-## **1️. Document (First & Most Important)**
+## **1. Document (First & Most Important)**
 
 ### What is a Document?
 
@@ -416,19 +415,19 @@ It is written in **JSON-like format**.
 
 ```js
 {
-  _id: ObjectId("64abc..."),
-  name: "Smit",
-  age: 21,
-  branch: "CSE"
+ _id: ObjectId("64abc..."),
+ name: "Smit",
+ age: 21,
+ branch: "CSE"
 }
 ```
 
-👉 Similar to a **JavaScript object**
-👉 Smallest unit of data in MongoDB
+ Similar to a **JavaScript object**
+ Smallest unit of data in MongoDB
 
 ---
 
-## **2️. Collection (Group of Documents)**
+## **2. Collection (Group of Documents)**
 
 ### What is a Collection?
 
@@ -437,17 +436,17 @@ A **collection** is a **group of related documents**.
 ### Example
 
 ```
-students  (collection)
+students (collection)
  ├── { name: "Smit", age: 21 }
  ├── { name: "Rahul", age: 22 }
 ```
 
-👉 Like a **table** in MySQL
-👉 No fixed schema (documents can differ)
+ Like a **table** in MySQL
+ No fixed schema (documents can differ)
 
 ---
 
-## **3️. Datatypes (Values inside Documents)**
+## **3. Datatypes (Values inside Documents)**
 
 ### What are Datatypes?
 
@@ -455,7 +454,7 @@ Datatypes define **what kind of data** a field holds **inside a document**.
 
 ---
 
-## 🔸 Common MongoDB Datatypes (with examples)
+## Common MongoDB Datatypes (with examples)
 
 ### 1. String
 
@@ -493,8 +492,8 @@ skills: ["Node", "MongoDB"]
 
 ```js
 address: {
-  city: "Surat",
-  pincode: 395007
+ city: "Surat",
+ pincode: 395007
 }
 ```
 
@@ -514,12 +513,12 @@ createdAt: new Date()
 _id: ObjectId("64abc...")
 ```
 
-👉 Automatically added
-👉 Unique identifier for each document
+ Automatically added
+ Unique identifier for each document
 
 ---
 
-## **4️. How All Three Work Together**
+## **4. How All Three Work Together**
 
 ```js
 Database: collegeDB
@@ -528,25 +527,24 @@ Collection: students
 
 Document:
 {
-  name: "Smit",          // String
-  age: 21,               // Number
-  skills: [],            // Array
-  isActive: true         // Boolean
+ name: "Smit", // String
+ age: 21, // Number
+ skills: [], // Array
+ isActive: true // Boolean
 }
 ```
 
 ---
-
 
 * **Document = One record**
 * **Collection = Group of records**
 * **Datatypes = Type of values inside document**
 
 ---
-Great topic 👍 — this is **core backend knowledge** for MongoDB + Node.js.
+Great topic — this is **core backend knowledge** for MongoDB + Node.js.
 
-Before we start, just to **calibrate** (quick check 👇):
-👉 **Do you already know basic MongoDB concepts** like *documents, collections, ObjectId,* and *CRUD*?
+Before we start, just to **calibrate** (quick check ):
+ **Do you already know basic MongoDB concepts** like *documents, collections, ObjectId,* and *CRUD*?
 (Just reply **yes / little / no** — one word is enough.)
 
 ---
@@ -558,10 +556,10 @@ We’ll learn this **step-by-step**, exactly how it’s done in **official Mongo
 1. **Connecting MongoDB to Node.js using Mongoose**
 2. **Understanding Database Relationships**
 
-   * One-to-One
-   * One-to-Many / Many-to-One
-   * Many-to-Many
-   * Polymorphic
+ * One-to-One
+ * One-to-Many / Many-to-One
+ * Many-to-Many
+ * Polymorphic
 3. **Handling Relationships with `populate()`**
 4. **When to embed vs reference (very important)**
 
@@ -570,7 +568,7 @@ We’ll build **realistic schemas**, ask you small questions, and confirm unders
 
 ---
 
-# **6️⃣ Connecting MongoDB to Node.js (Mongoose way)**
+# ** Connecting MongoDB to Node.js (Mongoose way)**
 ---
 
 ### First, what is **Mongoose**?
@@ -601,7 +599,7 @@ npm install mongoose
 ```
 project/
 │── models/
-│   └── User.js
+│ └── User.js
 │── db.js
 │── index.js
 ```
@@ -616,19 +614,19 @@ This structure is **official-style & scalable**.
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
-  try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/mydb");
-    console.log("MongoDB Connected");
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
+ try {
+ await mongoose.connect("mongodb://127.0.0.1:27017/mydb");
+ console.log("MongoDB Connected");
+ } catch (error) {
+ console.error(error);
+ process.exit(1);
+ }
 };
 
 module.exports = connectDB;
 ```
 
-### Key ideas (important 🔑):
+### Key ideas (important ):
 
 * `mongoose.connect()` → opens connection
 * DB name = `mydb`
@@ -646,26 +644,26 @@ const app = express();
 connectDB();
 
 app.listen(3000, () => {
-  console.log("Server running");
+ console.log("Server running");
 });
 ```
 
-👉 Now your **Node.js + MongoDB connection is ready**
+ Now your **Node.js + MongoDB connection is ready**
 
 ---
 
-Perfect 👍
+Perfect
 Let’s move **one clean step forward**.
 
 ---
 
-#  **7️⃣ Mongoose **Schema** & **Model** (Foundation for Relationships)**
+# ** Mongoose **Schema** & **Model** (Foundation for Relationships)**
 
 Before relations, you **must** clearly understand these two:
 
-### 🔹 Schema → *Blueprint*
+### Schema → *Blueprint*
 
-### 🔹 Model → *Actual collection handler*
+### Model → *Actual collection handler*
 
 Think like this:
 
@@ -674,7 +672,7 @@ Think like this:
 
 ---
 
-## 1️. What is a Schema?
+## 1. What is a Schema?
 
 A **Schema defines**:
 
@@ -684,28 +682,28 @@ A **Schema defines**:
 
 ### Example: `User` Schema
 
-📁 `models/User.js`
+ `models/User.js`
 
 ```js
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  age: Number
+ name: {
+ type: String,
+ required: true
+ },
+ email: {
+ type: String,
+ required: true,
+ unique: true
+ },
+ age: Number
 });
 
 module.exports = mongoose.model("User", userSchema);
 ```
 
-### Understand line-by-line 🔍
+### Understand line-by-line
 
 * `new mongoose.Schema()` → creates structure
 * `type` → data type
@@ -713,11 +711,11 @@ module.exports = mongoose.model("User", userSchema);
 * `unique` → creates unique index
 * `"User"` → **collection name becomes `users`** (pluralized automatically)
 
-📌 **Official behavior of Mongoose**
+ **Official behavior of Mongoose**
 
 ---
 
-## 2️. What is a Model?
+## 2. What is a Model?
 
 A **Model**:
 
@@ -729,7 +727,7 @@ A **Model**:
 const User = mongoose.model("User", userSchema);
 ```
 
-👉 `User` can now:
+ `User` can now:
 
 ```js
 User.find()
@@ -739,47 +737,47 @@ User.findById()
 
 ---
 
-## 3️. Insert a Document (Test)
+## 3. Insert a Document (Test)
 
 ```js
 const User = require("./models/User");
 
 const createUser = async () => {
-  const user = await User.create({
-    name: "Amit",
-    email: "amit@gmail.com",
-    age: 22
-  });
-  console.log(user);
+ const user = await User.create({
+ name: "Amit",
+ email: "amit@gmail.com",
+ age: 22
+ });
+ console.log(user);
 };
 
 createUser();
 ```
 
-📌 MongoDB will store:
+ MongoDB will store:
 
 * `_id` → auto-generated `ObjectId`
 * timestamps (if enabled later)
 
 ---
 
-## ⚠️ Why this step is CRITICAL? 
+## Why this step is CRITICAL?
 
 Because **relationships in MongoDB are created by storing another document’s `_id` (ObjectId)**, and **Mongoose can understand and use those relationships only when they are clearly defined**.
 
 ---
 
-👉 **No reference in Schema (`ObjectId + ref`) = No relationship**
-👉 **No Model = No `populate()`**
+ **No reference in Schema (`ObjectId + ref`) = No relationship**
+ **No Model = No `populate()`**
 
 ---
-Alright 👍
+Alright
 I’ll explain **ALL database relationships** **clearly, step-by-step**, with **simple structure**, **real examples**, and **Mongoose-official style**.
 No confusion, no unnecessary theory.
 
 ---
 
-#  **8️⃣Database Relationships(with Mongoose)**
+# **Database Relationships(with Mongoose)**
 
 MongoDB **does NOT have joins like SQL**.
 Relationships are handled using:
@@ -790,16 +788,16 @@ Relationships are handled using:
 
 ---
 
-## **1️. One-to-One Relationship**
+## **1. One-to-One Relationship**
 
 ## Meaning
 
-👉 One document is related to **exactly one** other document.
+ One document is related to **exactly one** other document.
 
 ### Real-world example
 
-* User ↔ Profile
-* Person ↔ Passport
+* User Profile
+* Person Passport
 
 ---
 
@@ -809,8 +807,8 @@ Relationships are handled using:
 
 ```js
 const userSchema = new mongoose.Schema({
-  name: String,
-  email: String
+ name: String,
+ email: String
 });
 ```
 
@@ -818,19 +816,19 @@ const userSchema = new mongoose.Schema({
 
 ```js
 const profileSchema = new mongoose.Schema({
-  bio: String,
-  address: String,
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    unique: true
-  }
+ bio: String,
+ address: String,
+ user: {
+ type: mongoose.Schema.Types.ObjectId,
+ ref: "User",
+ unique: true
+ }
 });
 ```
 
 ### Why `unique: true`?
 
-✔ Ensures **one profile per user**
+ Ensures **one profile per user**
 
 ---
 
@@ -842,13 +840,13 @@ Profile.findOne().populate("user");
 
 ---
 
-## Key idea 🧠
+## Key idea
 
 > **One-to-One = one document stores the other’s `_id` with uniqueness**
 
 ---
 
-## **2️. One-to-Many / Many-to-One**
+## **2. One-to-Many / Many-to-One**
 
 (Same relationship, different direction)
 
@@ -856,8 +854,8 @@ Profile.findOne().populate("user");
 
 ## Meaning
 
-👉 One entity has **many** related entities
-👉 Many entities belong to **one** entity
+ One entity has **many** related entities
+ Many entities belong to **one** entity
 
 ### Real-world example
 
@@ -872,16 +870,16 @@ Profile.findOne().populate("user");
 
 ```js
 const postSchema = new mongoose.Schema({
-  title: String,
-  content: String,
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
-  }
+ title: String,
+ content: String,
+ user: {
+ type: mongoose.Schema.Types.ObjectId,
+ ref: "User"
+ }
 });
 ```
 
-📌 Each post stores **one User ID**
+ Each post stores **one User ID**
 
 ---
 
@@ -893,35 +891,35 @@ Post.find().populate("user");
 
 ---
 
-## Alternative (embedding IDs in User) ⚠️
+## Alternative (embedding IDs in User)
 
 ```js
 posts: [ObjectId]
 ```
 
-❌ Not scalable
-❌ User document grows too large
+ Not scalable
+ User document grows too large
 
 ---
 
-## Key idea 🧠
+## Key idea
 
 > **One-to-Many = many documents store one parent’s `_id`**
 
 ---
 
-## **3️. Many-to-Many Relationship**
+## **3. Many-to-Many Relationship**
 
 ---
 
 ## Meaning
 
-👉 Many documents relate to **many** others
+ Many documents relate to **many** others
 
 ### Real-world example
 
-* Students ↔ Courses
-* Users ↔ Roles
+* Students Courses
+* Users Roles
 
 ---
 
@@ -931,8 +929,8 @@ posts: [ObjectId]
 
 ```js
 courses: [{
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "Course"
+ type: mongoose.Schema.Types.ObjectId,
+ ref: "Course"
 }]
 ```
 
@@ -940,12 +938,12 @@ courses: [{
 
 ```js
 students: [{
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "Student"
+ type: mongoose.Schema.Types.ObjectId,
+ ref: "Student"
 }]
 ```
 
-✔ Both store arrays of ObjectIds
+ Both store arrays of ObjectIds
 
 ---
 
@@ -957,19 +955,19 @@ Student.find().populate("courses");
 
 ---
 
-## Key idea 🧠
+## Key idea
 
 > **Many-to-Many = arrays of ObjectIds on both sides**
 
 ---
 
-## 4️. Polymorphic Relationship ⭐ (Advanced)
+## 4. Polymorphic Relationship (Advanced)
 
 ---
 
 ## Meaning
 
-👉 One document can relate to **multiple model types**
+ One document can relate to **multiple model types**
 
 ### Real-world example
 
@@ -984,16 +982,16 @@ Student.find().populate("courses");
 
 ```js
 const commentSchema = new mongoose.Schema({
-  text: String,
-  parentId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
-  },
-  parentType: {
-    type: String,
-    required: true,
-    enum: ["Post", "Video"]
-  }
+ text: String,
+ parentId: {
+ type: mongoose.Schema.Types.ObjectId,
+ required: true
+ },
+ parentType: {
+ type: String,
+ required: true,
+ enum: ["Post", "Video"]
+ }
 });
 ```
 ---
@@ -1002,37 +1000,37 @@ const commentSchema = new mongoose.Schema({
 
 ```js
 Comment.find().populate({
-  path: "parentId",
-  model: doc => doc.parentType
+ path: "parentId",
+ model: doc => doc.parentType
 });
 ```
 
 ---
 
-## Key idea 🧠
+## Key idea
 
 > **Polymorphic = one `_id`, multiple possible models**
 
 ---
 
-# 🔁 Summary Table (EXAM + INTERVIEW READY)
+# Summary Table (EXAM + INTERVIEW READY)
 
-| Relationship | How it’s built            |
+| Relationship | How it’s built |
 | ------------ | ------------------------- |
-| One-to-One   | ObjectId + unique         |
-| One-to-Many  | Child stores parent `_id` |
-| Many-to-Many | Arrays of ObjectIds       |
-| Polymorphic  | `_id` + `type` field      |
+| One-to-One | ObjectId + unique |
+| One-to-Many | Child stores parent `_id` |
+| Many-to-Many | Arrays of ObjectIds |
+| Polymorphic | `_id` + `type` field |
 
 ---
-Great 👍
+Great
 Now we’ll focus **only on `populate()`**, **step-by-step**, the way it’s used in **real projects** and **official Mongoose patterns**.
 
 I’ll go **slow**, and after each concept I’ll check understanding.
 
 ---
 
-# **9️⃣ Handling Relationships with `populate()`**
+# ** Handling Relationships with `populate()`**
 
 ## First: What `populate()` actually does?
 
@@ -1042,7 +1040,7 @@ Nothing more.
 
 ---
 
-## 1️. Basic `populate()` (Single Reference)
+## 1. Basic `populate()` (Single Reference)
 
 ### Example: Post → User (One-to-Many)
 
@@ -1050,11 +1048,11 @@ Nothing more.
 
 ```js
 const postSchema = new mongoose.Schema({
-  title: String,
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
-  }
+ title: String,
+ user: {
+ type: mongoose.Schema.Types.ObjectId,
+ ref: "User"
+ }
 });
 ```
 
@@ -1070,22 +1068,22 @@ Post.find().populate("user");
 
 ```js
 {
-  title: "Hello",
-  user: {
-    _id: "...",
-    name: "Amit",
-    email: "amit@gmail.com"
-  }
+ title: "Hello",
+ user: {
+ _id: "...",
+ name: "Amit",
+ email: "amit@gmail.com"
+ }
 }
 ```
 
-🧠 **ID → full object**
+ **ID → full object**
 
 ---
 
-## 2️. Select specific fields 
-By default, populate brings **everything** ❌
-We usually want **limited data** ✅
+## 2. Select specific fields
+By default, populate brings **everything**
+We usually want **limited data**
 
 ### Query
 
@@ -1098,25 +1096,25 @@ Post.find().populate("user", "name email");
 * `"user"` → field to populate
 * `"name email"` → fields to include
 
-📌 Good for **performance & security**
+ Good for **performance & security**
 
 ---
 
-## 3️. Populate Multiple Fields
+## 3. Populate Multiple Fields
 
 ### Example: Order → User + Product
 
 ```js
 Order.find()
-  .populate("user", "name")
-  .populate("product", "title price");
+ .populate("user", "name")
+ .populate("product", "title price");
 ```
 
-🧠 You can call `populate()` **multiple times**
+ You can call `populate()` **multiple times**
 
 ---
 
-## 4️. Nested Populate (MOST IMPORTANT ⭐)
+## 4. Nested Populate (MOST IMPORTANT )
 
 ### Example
 
@@ -1130,14 +1128,14 @@ Order.find()
 
 ```js
 User.find().populate({
-  path: "posts",
-  populate: {
-    path: "comments",
-    populate: {
-      path: "user",
-      select: "name"
-    }
-  }
+ path: "posts",
+ populate: {
+ path: "comments",
+ populate: {
+ path: "user",
+ select: "name"
+ }
+ }
 });
 ```
 
@@ -1147,43 +1145,43 @@ User.find().populate({
 * inside posts → populate comments
 * inside comments → populate user
 
-📌 This is **real-world usage**
+ This is **real-world usage**
 
 ---
 
-## 5️. Populate with condition (filter using `match`)
+## 5. Populate with condition (filter using `match`)
 
 ### Example: only active users
 
 ```js
 Post.find().populate({
-  path: "user",
-  match: { isActive: true },
-  select: "name"
+ path: "user",
+ match: { isActive: true },
+ select: "name"
 });
 ```
 
-📌 If condition fails → `user` becomes `null`
+ If condition fails → `user` becomes `null`
 
 ---
-## 6. Performance Rules (VERY IMPORTANT ⚠️)
+## 6. Performance Rules (VERY IMPORTANT )
 
-❌ Bad:
+ Bad:
 
 * Populating large arrays
 * Deep nesting everywhere
 
-✅ Good:
+ Good:
 
 * Select fields
 * Paginate
 * Populate only when needed
 
-🧠 **populate is powerful but expensive**
+ **populate is powerful but expensive**
 
 ---
 
-# 🧾 Final Mental Model (MEMORIZE)
+# Final Mental Model (MEMORIZE)
 
 ```
 Schema tells WHAT to link
@@ -1193,14 +1191,14 @@ populate() fetches related data
 
 ---
 
-# 🔁 Quick Summary Table
+# Quick Summary Table
 
-| Feature           | Use                  |
+| Feature | Use |
 | ----------------- | -------------------- |
-| Basic populate    | Replace ID           |
-| select            | Limit fields         |
-| multiple populate | Many refs            |
-| nested populate   | Deep relations       |
-| match             | Conditional populate |
+| Basic populate | Replace ID |
+| select | Limit fields |
+| multiple populate | Many refs |
+| nested populate | Deep relations |
+| match | Conditional populate |
 
 ---
