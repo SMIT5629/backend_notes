@@ -38,9 +38,9 @@ Used to test APIs without needing a frontend UI.
 
 1. Create a file:
 
- ```js
- console.log("Namaste Duniya");
- ```
+    ```js
+    console.log("Namaste Duniya");
+    ```
 
 2. Run in terminal:
 
@@ -132,7 +132,11 @@ Visit:
 
 - `res.write()` → send data
 - `res.end()` → end the response
+<<<<<<< HEAD
  Without `res.end()`, the request never closes.
+=======
+  Without `res.end()`, the request never closes.
+>>>>>>> 87a599d527363e60466a13eb25e5729c9a923422
 
 ---
 
@@ -340,12 +344,21 @@ REST APIs follow:
 
 MVC fits REST APIs perfectly:
 
+<<<<<<< HEAD
 | REST API Component | MVC Part |
 | -------------------- | ----------- |
 | Endpoint `/tasks` | Route |
 | Business Logic | Controller |
 | Database Operations | Model |
 | No HTML UI | View unused |
+=======
+| REST API Component  | MVC Part    |
+| -------------------- | ----------- |
+| Endpoint `/tasks`    | Route       |
+| Business Logic        | Controller  |
+| Database Operations   | Model       |
+| No HTML UI             | View unused |
+>>>>>>> 87a599d527363e60466a13eb25e5729c9a923422
 
 **Route Example**
 
@@ -392,12 +405,21 @@ Payment Service: POST /pay
 
 ## 5. MVC vs SOA (Simple Comparison)
 
+<<<<<<< HEAD
 | Feature | MVC | SOA |
 | ------------ | ------------------- | ------------------------- |
 | Structure | Inside one backend | Many backends (services) |
 | Use Case | Small/Medium apps | Large systems |
 | Servers | Single | Multiple |
 | Relationship | MVC is part of SOA | SOA = many MVC apps |
+=======
+| Feature      | MVC                | SOA                      |
+| ------------ | ------------------- | ------------------------- |
+| Structure    | Inside one backend  | Many backends (services)  |
+| Use Case     | Small/Medium apps   | Large systems              |
+| Servers      | Single               | Multiple                   |
+| Relationship | MVC is part of SOA  | SOA = many MVC apps        |
+>>>>>>> 87a599d527363e60466a13eb25e5729c9a923422
 
 ---
 
